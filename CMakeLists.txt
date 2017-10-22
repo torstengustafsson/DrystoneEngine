@@ -12,27 +12,26 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
  # set the default path for built libraries to the "lib" directory
  set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
- # specify Include Directory
+ # specify include directory
  set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+
+# specify external dependencies directory
+set(EXT_DIR ${PROJECT_SOURCE_DIR}/ext)
 
 include_directories(${PROJECT_INCLUDE_DIR})
 include_directories(${OPENGL_INCLUDE_DIR})
 
-# find SDL2 packages
-#set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-#find_package(SDL2 REQUIRED)
-#include_directories(${SDL2_INCLUDE_DIR})
-
-# alternatively SDL2 paths can be set manually
-set(SDL2_DIR "D:/Libraries/SDL2")
-include_directories("${SDL2_DIR}/SDL2_image-2.0.1/include")
-include_directories("${SDL2_DIR}/SDL2-2.0.5/include")
-include_directories("${SDL2_DIR}/SDL2_ttf-2.0.14/include")
-set(SDL2_LIBRARIES
-      ${SDL2_DIR}/SDL2-2.0.5/lib/x64/SDL2.lib
-      ${SDL2_DIR}/SDL2-2.0.5/lib/x64/SDL2main.lib
-      ${SDL2_DIR}/SDL2_ttf-2.0.14/lib/x64/SDL2_ttf.lib
-      ${SDL2_DIR}/SDL2_image-2.0.1/lib/x64/SDL2_image.lib )
+# include external dependencies
+include_directories("${EXT_DIR}/SDL2/SDL2_image-2.0.1/include")
+include_directories("${EXT_DIR}/SDL2/SDL2-2.0.5/include")
+include_directories("${EXT_DIR}/SDL2/SDL2_ttf-2.0.14/include")
+include_directories("${EXT_DIR}/glew-2.1.0/include")
+set(EXT_LIBRARIES
+      ${EXT_DIR}/SDL2/SDL2-2.0.5/lib/x64/SDL2.lib
+      ${EXT_DIR}/SDL2/SDL2-2.0.5/lib/x64/SDL2main.lib
+      ${EXT_DIR}/SDL2/SDL2_ttf-2.0.14/lib/x64/SDL2_ttf.lib
+      ${EXT_DIR}/SDL2/SDL2_image-2.0.1/lib/x64/SDL2_image.lib
+      ${EXT_DIR}/glew-2.1.0/lib/Release/x64/glew32s.lib )
 
 
 # Bump up warning levels appropriately for clang, gcc & msvc and build in debug mode
@@ -83,4 +82,4 @@ GroupSources("include")
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_FILES} ${HEADER_FILES})
 
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${SDL2_LIBRARY})
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${EXT_LIBRARIES})
