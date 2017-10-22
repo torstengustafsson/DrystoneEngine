@@ -6,19 +6,24 @@ project(${PROJECT_NAME})
 find_package(OpenGL REQUIRED)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
- #set the default path for built executables to the "bin" directory
+ # set the default path for built executables to the "bin" directory
  set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
- #set the default path for built libraries to the "lib" directory
+ # set the default path for built libraries to the "lib" directory
  set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
- #Specify Include Directory
+ # specify Include Directory
  set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
 include_directories(${PROJECT_INCLUDE_DIR})
 include_directories(${OPENGL_INCLUDE_DIR})
 
-#Set SDL2 paths (TODO: find it instead or hardcoding it)
+# find SDL2 packages
+#set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+#find_package(SDL2 REQUIRED)
+#include_directories(${SDL2_INCLUDE_DIR})
+
+# alternatively SDL2 paths can be set manually
 set(SDL2_DIR "D:/Libraries/SDL2")
 include_directories("${SDL2_DIR}/SDL2_image-2.0.1/include")
 include_directories("${SDL2_DIR}/SDL2-2.0.5/include")
@@ -28,8 +33,6 @@ set(SDL2_LIBRARIES
       ${SDL2_DIR}/SDL2-2.0.5/lib/x64/SDL2main.lib
       ${SDL2_DIR}/SDL2_ttf-2.0.14/lib/x64/SDL2_ttf.lib
       ${SDL2_DIR}/SDL2_image-2.0.1/lib/x64/SDL2_image.lib )
-
-include_directories(include)
 
 
 # Bump up warning levels appropriately for clang, gcc & msvc and build in debug mode
@@ -80,4 +83,4 @@ GroupSources("include")
 
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_FILES} ${HEADER_FILES})
 
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${SDL2_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} ${SDL2_LIBRARY})
