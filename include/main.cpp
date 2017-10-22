@@ -1,23 +1,32 @@
-#include <iostream>
-#include "SDL.h"
+#include <chrono>
+#include "core/inc/game.h"
 
-int main(int, char**){
+int main(int argc, char *argv[]) {
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		std::cout << "Failed to init SDL\n";
-		return false;
-	}
+  Game theGame;
 
-	// Create our window centered at 512x512 resolution
-	SDL_Window* mainwindow = SDL_CreateWindow(
-		"My Game",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		512,
-		512,
-		SDL_WINDOW_OPENGL
-	);
-	
-	return 0;
+  bool quit = false;
+
+  const int SCREEN_TICKS_PER_FRAME = 1000 / 60;
+
+  //The frames per second cap timer
+  std::chrono::high_resolution_clock::time_point timer;
+
+  int frames = 0;
+
+  while (!quit && frames++ < 100) {
+    timer = std::chrono::high_resolution_clock::now();
+
+    // run the game
+    theGame.frame();
+
+    // lock framerate
+    std::chrono::nanoseconds elapsed = std::chrono::high_resolution_clock::now() - timer;
+    int frameTicks = elapsed.count(); // if frame finished early
+    if (frameTicks < SCREEN_TICKS_PER_FRAME) {
+      SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks); // wait remaining time
+    }
+  }
+
+  return 0;
 }

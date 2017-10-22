@@ -32,7 +32,7 @@ set(EXT_LIBRARIES
       ${EXT_DIR}/SDL2/SDL2-2.0.5/lib/x64/SDL2main.lib
       ${EXT_DIR}/SDL2/SDL2_ttf-2.0.14/lib/x64/SDL2_ttf.lib
       ${EXT_DIR}/SDL2/SDL2_image-2.0.1/lib/x64/SDL2_image.lib
-      ${EXT_DIR}/glew-2.1.0/lib/Release/x64/glew32s.lib )
+      ${EXT_DIR}/glew-2.1.0/lib/Release/x64/glew32.lib )
 
 
 # Bump up warning levels appropriately for clang, gcc & msvc and build in debug mode
@@ -50,7 +50,16 @@ endif()
 
 # Add source files
 set( PROJECT_SOURCE_FILES
-       include/main.cpp )
+      include/main.cpp
+      include/core/src/Game.cpp
+      include/core/src/GameController.cpp
+      include/core/src/GameEngine.cpp
+      include/core/src/GameRenderer.cpp
+      include/core/src/InputHandler.cpp
+      include/core/src/RandomGenerator.cpp
+      include/world/src/Camera.cpp
+      include/world/src/GameObject.cpp
+      include/world/src/Player.cpp )
 
 # Add header files
 file(GLOB_RECURSE HEADER_FILES "*.h")
