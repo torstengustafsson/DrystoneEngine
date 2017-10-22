@@ -6,14 +6,15 @@ project(${PROJECT_NAME})
 find_package(OpenGL REQUIRED)
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
- # set the default path for built executables to the "bin" directory
- set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+# set the default path for built executables to the "bin" directory
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${EXECUTABLE_OUTPUT_PATH})
 
- # set the default path for built libraries to the "lib" directory
- set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+# set the default path for built libraries to the "lib" directory
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
- # specify include directory
- set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+# specify include directory
+set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 
 # specify external dependencies directory
 set(EXT_DIR ${PROJECT_SOURCE_DIR}/ext)
