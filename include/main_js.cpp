@@ -1,7 +1,10 @@
 #include <emscripten.h>
+#include "core/inc/game.h"
+
+Game theGame;
 
 void main_loop() {
-
+    theGame.frame();
 }
 
 int main(){
