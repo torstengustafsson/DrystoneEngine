@@ -10,8 +10,7 @@
 * TODO: write description
 */
 
-class GameController
-{
+class GameController {
 friend class InputHandler;
 public:
   GameController(std::shared_ptr<Player> _player);
@@ -28,6 +27,5 @@ private:
   bool gamePaused = false; // becomes true when menu is open etc.
   bool loading = false;	// true when game assets is loading to prevent screen tearing etc.
 	
-  std::unique_ptr<InputHandler> inputHandler;	
   std::shared_ptr<Player> player;
 };

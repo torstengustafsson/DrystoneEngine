@@ -19,14 +19,22 @@ public:
   void frame();
 
 private:
-  // game renderer class controls SDL window and renderer
-  std::unique_ptr<GameRenderer> gameRenderer;
+
+  void handleInput();
+  void update();
+  void render();
+
+  // input handler handles user input such as key and mouse presses
+  std::unique_ptr<InputHandler> inputHandler;
 
   // game controller handles game logic.
   std::unique_ptr<GameController> gameController;
 
   // game engine handles collisions and movement of objects
   std::unique_ptr<GameEngine> gameEngine;
+
+  // game renderer controls SDL window and renderer
+  std::unique_ptr<GameRenderer> gameRenderer;
 
   // the player object is passed around to handler classes so pointer type is recommended
   std::shared_ptr<Player> player;
