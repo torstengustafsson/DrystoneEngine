@@ -97,17 +97,15 @@ void GameRenderer::renderFrame(std::vector<GameObject*> gameObjects) {
   SCREEN_WIDTH = SDL_GetWindowSurface(gameWindow.get())->w;
   SCREEN_HEIGHT = SDL_GetWindowSurface(gameWindow.get())->h;
 	
-  //Clear screen
-  glClear(GL_COLOR_BUFFER_BIT);
-  SDL_GL_SwapWindow(gameWindow.get());
-
-  //Render texture to screen
+  // render objects to screen
   for(auto o : gameObjects) {
     renderObject(o);
   }
-	
-  //Update screen
+
+  // update screen
+  glClear(GL_COLOR_BUFFER_BIT);
   SDL_GL_SwapWindow(gameWindow.get());
+
 }
 
 void GameRenderer::renderObject(GameObject* o) {

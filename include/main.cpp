@@ -1,20 +1,23 @@
 #include <chrono>
-#include "core/inc/game.h"
+#include "core/inc/Globals.h"
+#include "core/inc/Game.h"
+
+// initialize global variables
+// defined in "core/inc/Globals.h"
+namespace Globals {
+  bool quit = false;
+}
 
 int main(int argc, char *argv[]) {
 
   Game theGame;
-
-  bool quit = false;
 
   const int SCREEN_TICKS_PER_FRAME = 1000 / 60;
 
   //The frames per second cap timer
   std::chrono::high_resolution_clock::time_point timer;
 
-  int frames = 0;
-
-  while (!quit && frames++ < 100) {
+  while (!Globals::quit) {
     timer = std::chrono::high_resolution_clock::now();
 
     // run the game

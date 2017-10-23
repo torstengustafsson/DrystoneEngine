@@ -12,7 +12,7 @@ Game::Game() {
 
   player = std::shared_ptr<Player>(new Player("player"));
 
-  inputHandler = std::unique_ptr<InputHandler>(new InputHandler(player));
+  inputHandler = std::unique_ptr<InputHandler>(new InputHandler());
   camera = std::unique_ptr<Camera>(new Camera(player));
   gameController = std::unique_ptr<GameController>(new GameController(player));
   gameEngine = std::unique_ptr<GameEngine>(new GameEngine(player));

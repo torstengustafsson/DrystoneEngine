@@ -55,8 +55,10 @@ set( PROJECT_SOURCE_FILES
       include/core/src/GameController.cpp
       include/core/src/GameEngine.cpp
       include/core/src/GameRenderer.cpp
-      include/core/src/InputHandler.cpp
       include/core/src/RandomGenerator.cpp
+      include/datastructures/src/Vector.cpp
+      include/input/src/InputHandler.cpp
+      include/input/src/InputCommands.cpp
       include/world/src/Camera.cpp
       include/world/src/GameObject.cpp
       include/world/src/Player.cpp )

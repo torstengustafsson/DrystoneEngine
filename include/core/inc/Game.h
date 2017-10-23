@@ -4,6 +4,7 @@
 #include "GameRenderer.h"
 #include "GameController.h"
 #include "GameEngine.h"
+#include "input/inc/InputHandler.h"
 #include "world/inc/GameObject.h"
 #include "world/inc/Player.h"
 #include "world/inc/Camera.h"

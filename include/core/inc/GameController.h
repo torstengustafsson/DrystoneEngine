@@ -2,7 +2,6 @@
 
 #include <vector>
 #include <memory>
-#include "InputHandler.h"
 #include "world/inc/GameObject.h"
 #include "world/inc/Player.h"
 
