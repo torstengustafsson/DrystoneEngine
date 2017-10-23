@@ -1,5 +1,5 @@
 #include <emscripten.h>
-#include "core/inc/game.h"
+#include "core/inc/Game.h"
 
 Game theGame;
 

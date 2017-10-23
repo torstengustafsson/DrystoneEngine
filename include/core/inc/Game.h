@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <chrono>
 #include "GameRenderer.h"
 #include "GameController.h"
 #include "GameEngine.h"
@@ -24,6 +25,11 @@ private:
   void handleInput();
   void update();
   void render();
+  void delay(std::chrono::nanoseconds frameTimeElapsed);
+
+  // handles locking of framerate
+  std::chrono::high_resolution_clock::time_point timer;
+  const int FPS = 60;
 
   // input handler handles user input such as key and mouse presses
   std::unique_ptr<InputHandler> inputHandler;
@@ -42,6 +48,4 @@ private:
 
   // camera class handles viewport (centers player on screen)
   std::unique_ptr<Camera> camera;
-
-  SDL_Event e;
 };

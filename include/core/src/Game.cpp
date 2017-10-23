@@ -20,9 +20,12 @@ Game::Game() {
 
 // perform one in-game frame
 void Game::frame() {
+  timer = std::chrono::high_resolution_clock::now();
+
   handleInput();
   update();
   render();
+  delay(std::chrono::high_resolution_clock::now() - timer);  
 }
 
 // handles user input
@@ -45,5 +48,15 @@ void Game::update() {
 void Game::render() {
   if (!gameController->isLoading()) {
     gameRenderer->renderFrame(gameController->getObjects());
+  }
+}
+
+// locks framerate to a fixed value defined by 'FPS'
+void Game::delay(std::chrono::nanoseconds frameTimeElapsed) {
+  int frameTicks = frameTimeElapsed.count();
+  const int SCREEN_TICKS_PER_FRAME = 1000 / static_cast<float>(FPS);
+
+  if (frameTicks < SCREEN_TICKS_PER_FRAME) {
+    SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks); // wait remaining time
   }
 }
