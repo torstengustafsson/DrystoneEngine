@@ -1,7 +1,7 @@
 #include "input/inc/InputCommands.h"
 #include "GL/glew.h"
 
-ChangeBGColorCommand::ChangeBGColorCommand(Vec4 _color)
+ChangeBGColorCommand::ChangeBGColorCommand(vector::Vec4 _color)
   : color(_color) {
 
 }

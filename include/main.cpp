@@ -7,7 +7,7 @@ namespace Globals {
   bool quit = false;
 }
 
-int main(int argc, char *argv[]) {
+int main(/*int argc, char *argv[]*/) {
 
   Game theGame;
 

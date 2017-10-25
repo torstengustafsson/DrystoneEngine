@@ -13,8 +13,8 @@ public:
 
 class ChangeBGColorCommand : public InputCommand {
 public:
-  ChangeBGColorCommand(Vec4 _color);
+  ChangeBGColorCommand(vector::Vec4 _color);
   void execute() override;
 private:
-  Vec4 color;
+  vector::Vec4 color;
 };
