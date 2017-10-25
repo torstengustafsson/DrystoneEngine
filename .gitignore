@@ -1,5 +1,5 @@
 build/
-bin/
-x64/
-x86/
-SDL2_OpenGL.dir/
+/bin/
+/x64/
+/x86/
+/SDL2_OpenGL.dir/

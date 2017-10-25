@@ -1,0 +1,1 @@
+.lib files and dlls were generated on my local machine. It should run for Windows 10 but no guarantees.
