@@ -26,7 +26,7 @@ void InputHandler::handleInput() {
   while (SDL_PollEvent(&event)) {
 
     if (event.type == SDL_QUIT) {
-      Globals::quit = true;
+      globals::quit = true;
     }
 
     if(event.type == SDL_KEYDOWN) {

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <cmath>
 #include <initializer_list>
 
 /*
@@ -12,14 +13,6 @@ namespace vector {
 class Vec2; 
 class Vec3;
 class Vec4;
-
-// helper functions
-Vec2 normalize(Vec2& v);
-Vec3 normalize(Vec3& v);
-Vec4 normalize(Vec4& v);
-float length(const Vec2& v);
-float length(const Vec3& v);
-float length(const Vec4& v);
 
 class Vec2 {
 public:
@@ -80,5 +73,35 @@ public:
 
   float x, y, z, w;
 };
+
+
+// helper functions
+
+inline float length(Vec2& v) {
+  return sqrt(pow(v.x, 2) + pow(v.y, 2));
+}
+
+inline float length(Vec3& v) {
+  return sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
+}
+
+inline float length(const Vec4& v) {
+  return sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2) + pow(v.w, 2));
+}
+
+inline Vec2 normalize(Vec2& v) {
+  v = v / length(v);
+  return v;
+}
+
+inline Vec3 normalize(Vec3& v) {
+  v = v / length(v);
+  return v;
+}
+
+inline Vec4 normalize(Vec4& v) {
+  v = v / length(v);
+  return v;
+}
 
 } // namespace vector

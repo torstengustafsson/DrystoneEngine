@@ -157,34 +157,4 @@ float Vec4::length() const {
   return vector::length(*this);
 }
 
-
-/// *** helper functions *** ///
-
-Vec2 normalize(Vec2& v) {
-  v = v / length(v);
-  return v;
-}
-
-Vec3 normalize(Vec3& v) {
-  v = v / length(v);
-  return v;
-}
-
-Vec4 normalize(Vec4& v) {
-  v = v / length(v);
-  return v;
-}
-
-float length(Vec2& v) {
-  return sqrt(pow(v.x, 2) + pow(v.y, 2));
-}
-
-float length(Vec3& v) {
-  return sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
-}
-
-float length(const Vec4& v) {
-  return sqrt(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2) + pow(v.w, 2));
-}
-
 } // namespace vector

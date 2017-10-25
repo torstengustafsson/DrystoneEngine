@@ -4,6 +4,6 @@
 * Contains the necessary global state of the game
 */
 
-namespace Globals {
+namespace globals {
   extern bool quit;
 };

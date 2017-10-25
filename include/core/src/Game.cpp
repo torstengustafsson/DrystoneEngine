@@ -1,13 +1,14 @@
 #include "core/inc/Game.h"
+#include "core/inc/Globals.h"
 
-
-Game::Game() {
+Game::Game(const int fps)
+ : FPS(fps) {
 
   gameRenderer = std::unique_ptr<GameRenderer>(new GameRenderer());
 
   if(!gameRenderer->init()) {
     printf( "Failed to initialize game renderer!\n" );
-    return;
+    globals::quit = true;
   }
 
   player = std::shared_ptr<Player>(new Player("player"));
@@ -21,11 +22,10 @@ Game::Game() {
 // perform one in-game frame
 void Game::frame() {
   timer = std::chrono::high_resolution_clock::now();
-
   handleInput();
   update();
   render();
-  delay(std::chrono::high_resolution_clock::now() - timer);  
+  delayFramerate();
 }
 
 // handles user input
@@ -52,9 +52,13 @@ void Game::render() {
 }
 
 // locks framerate to a fixed value defined by 'FPS'
-void Game::delay(std::chrono::nanoseconds frameTimeElapsed) {
-  int frameTicks = static_cast<int>(frameTimeElapsed.count());
-  const int SCREEN_TICKS_PER_FRAME = static_cast<int>(1000 / static_cast<float>(FPS));
+void Game::delayFramerate() {
+  using namespace std::chrono;
+  milliseconds frameTimeElapsed = duration_cast<milliseconds>(high_resolution_clock::now() - timer);
+
+  __int64 frameTicks = frameTimeElapsed.count();
+  double temp = 1000 / static_cast<double>(FPS);
+  const __int64 SCREEN_TICKS_PER_FRAME = static_cast<__int64>(temp);
 
   if (frameTicks < SCREEN_TICKS_PER_FRAME) {
     SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks); // wait remaining time

@@ -16,7 +16,7 @@
 
 class Game {
 public:
-  Game();
+  Game(const int fps = 60);
 
   void frame();
 
@@ -25,11 +25,11 @@ private:
   void handleInput();
   void update();
   void render();
-  void delay(std::chrono::nanoseconds frameTimeElapsed);
+  void delayFramerate();
 
   // handles locking of framerate
   std::chrono::high_resolution_clock::time_point timer;
-  const int FPS = 60;
+  const int FPS;
 
   // input handler handles user input such as key and mouse presses
   std::unique_ptr<InputHandler> inputHandler;
