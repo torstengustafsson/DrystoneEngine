@@ -2,4 +2,5 @@ build/
 /bin/
 /x64/
 /x86/
+/Win32/
 /SDL2_OpenGL.dir/
