@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.7)
 
 project(DrystoneEngineProjects)
 
-set(bin_dest "bin")
-
 set(CMAKE_DISABLE_IN_SOURCE_BUILD ON)
 set(CMAKE_DISABLE_SOURCE_CHANGES  ON)
 

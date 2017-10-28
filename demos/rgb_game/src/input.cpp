@@ -1,6 +1,6 @@
-#include "input/InputCommands.h"
+#include "input.h"
 #include "GL/glew.h"
-
+#include "input/inc/InputCommand.h"
 ChangeBGColorCommand::ChangeBGColorCommand(vector::Vec4 _color)
   : color(_color) {
 

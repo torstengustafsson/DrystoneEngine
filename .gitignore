@@ -4,3 +4,6 @@ build/
 /x86/
 /Win32/
 /SDL2_OpenGL.dir/
+index.html
+index.html.mem
+index.js

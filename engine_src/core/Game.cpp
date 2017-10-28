@@ -1,23 +1,31 @@
 #include "core/Game.h"
-#include "core/inc/Globals.h"
 
 // initialize global variables
 // defined in "core/inc/Globals.h"
 bool Globals::quit = false;
 
-Game::Game(const int fps)
-  : FPS(fps) {
+Game::Game(std::shared_ptr<InputHandler> inputHandler, const int fps)
+  : inputHandler_(inputHandler),
+    FPS(fps) {
 
-  gameRenderer = std::unique_ptr<GameRenderer>(new GameRenderer());
+  gameRenderer_ = std::unique_ptr<GameRenderer>(new GameRenderer());
 
-  if (!gameRenderer->init()) {
+  if (!gameRenderer_->init()) {
     printf("Failed to initialize game renderer!\n");
     Globals::quit = true;
   }
 
-  inputHandler = std::unique_ptr<InputHandler>(new InputHandler());
-  gameController = std::unique_ptr<GameController>(new GameController());
-  gameEngine = std::unique_ptr<GameEngine>(new GameEngine());
+  // create empty inputhandler if none was provided
+  if(!inputHandler_) {
+    inputHandler_ = std::unique_ptr<InputHandler>(new InputHandler());
+  }
+
+  gameController_ = std::unique_ptr<GameController>(new GameController());
+  gameEngine_ = std::unique_ptr<GameEngine>(new GameEngine());
+}
+
+Game::Game(InputHandler& _inputHandler, const int fps)
+  : Game(std::shared_ptr<InputHandler>(&_inputHandler), fps) {
 }
 
 // perform one in-game frame
@@ -31,24 +39,24 @@ void Game::frame() {
 
 // handles user input
 void Game::handleInput() {
-  inputHandler->handleInput();
+  inputHandler_->handleInput();
 }
 
 // updates game state
 void Game::update() {
   // handle game logic such as spawning new objects and events
-  gameController->frame();
+  gameController_->frame();
 
   // handle object movements and collisions
-  if (!gameController->isPaused()) {
-    gameEngine->frame(gameController->getObjects());
+  if (!gameController_->isPaused()) {
+    gameEngine_->frame(gameController_->getObjects());
   }
 }
 
 // performs all game rendering
 void Game::render() {
-  if (!gameController->isLoading()) {
-    gameRenderer->renderFrame(gameController->getObjects());
+  if (!gameController_->isLoading()) {
+    gameRenderer_->renderFrame(gameController_->getObjects());
   }
 }
 
@@ -64,4 +72,8 @@ void Game::delayFramerate() {
   if (frameTicks < SCREEN_TICKS_PER_FRAME) {
     SDL_Delay(SCREEN_TICKS_PER_FRAME - frameTicks); // wait remaining time
   }
+}
+
+std::shared_ptr<InputHandler> Game::inputHandler() {
+  return inputHandler_;
 }

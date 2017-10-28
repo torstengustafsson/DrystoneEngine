@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <chrono>
+#include "core/inc/Globals.h"
 #include "GameRenderer.h"
 #include "GameController.h"
 #include "GameEngine.h"
@@ -14,9 +15,12 @@
 
 class Game {
 public:
-  Game(const int fps = 60);
+  Game(std::shared_ptr<InputHandler> inputHandler = nullptr, const int fps = 60);
+  Game(InputHandler& inputHandler, const int fps = 60);
 
   void frame();
+
+  std::shared_ptr<InputHandler> inputHandler();
 
 private:
 
@@ -30,15 +34,15 @@ private:
   const int FPS;
 
   // input handler handles user input such as key and mouse presses
-  std::unique_ptr<InputHandler> inputHandler;
+  std::shared_ptr<InputHandler> inputHandler_;
 
   // game controller handles game logic.
-  std::unique_ptr<GameController> gameController;
+  std::unique_ptr<GameController> gameController_;
 
   // game engine handles collisions and movement of objects
-  std::unique_ptr<GameEngine> gameEngine;
+  std::unique_ptr<GameEngine> gameEngine_;
 
   // game renderer controls SDL window and renderer
-  std::unique_ptr<GameRenderer> gameRenderer;
+  std::unique_ptr<GameRenderer> gameRenderer_;
 
 };

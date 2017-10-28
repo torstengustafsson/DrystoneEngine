@@ -2,12 +2,14 @@
 
 #include <map>
 #include <memory>
+#include <vector>
 #include "SDL.h"
-#include "input/inc/InputConstants.h"
-#include "input/InputCommands.h"
+#include "input/inc/InputCommand.h"
 
 /*
-* TODO: write description
+* Each game uses an input handler to handle user input.
+* Input can be mapped and remapped to commands dynamically 
+* in runtime.
 */
 
 class InputHandler {
@@ -17,12 +19,11 @@ public:
   InputHandler & operator=(const InputHandler&) = delete;
   InputHandler(const InputHandler&) = delete;
 
+  void addInputMapping(const int key, InputCommand& command);
+  void removeInputMapping(const int key);
+
   void handleInput();
 
 private:
-  std::map<int, int> rawInputMappings; // conversions between SDL input mapping and game input mapping
   std::map<int, std::shared_ptr<InputCommand>> inputMappings; // game input mappings to the actual commands
-
-  void initRawInputMappings();
-  void initInputMappings();
 };

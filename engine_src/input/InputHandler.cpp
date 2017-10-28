@@ -1,24 +1,16 @@
 #include "input/InputHandler.h"
 #include "core/inc/Globals.h"
 
+// default constructor initializes basic input commands
 InputHandler::InputHandler() {
-  
-  initRawInputMappings();
-  initInputMappings();
 }
 
-// map raw input to the input types used by the game
-void InputHandler::initRawInputMappings() {
-  rawInputMappings[SDLK_r] = KEYS::SET_COLOR_RED;
-  rawInputMappings[SDLK_g] = KEYS::SET_COLOR_GREEN;
-  rawInputMappings[SDLK_b] = KEYS::SET_COLOR_BLUE;
+void InputHandler::addInputMapping(const int key, InputCommand& command) {
+  inputMappings[key] = std::shared_ptr<InputCommand>(&command);
 }
 
-// map input to commands
-void InputHandler::initInputMappings() {
-  inputMappings[KEYS::SET_COLOR_RED] = std::unique_ptr<InputCommand>(new ChangeBGColorCommand(vector::Vec4(1, 0, 0, 1)));
-  inputMappings[KEYS::SET_COLOR_GREEN] = std::unique_ptr<InputCommand>(new ChangeBGColorCommand(vector::Vec4(0, 1, 0, 1)));
-  inputMappings[KEYS::SET_COLOR_BLUE] = std::unique_ptr<InputCommand>(new ChangeBGColorCommand(vector::Vec4(0, 0, 1, 1)));
+void InputHandler::removeInputMapping(const int key) {
+  inputMappings[key].reset();
 }
 
 void InputHandler::handleInput() {
@@ -32,8 +24,8 @@ void InputHandler::handleInput() {
     if(event.type == SDL_KEYDOWN) {
       int key = event.key.keysym.sym;
 
-      if (rawInputMappings.find(key) != rawInputMappings.end()) {
-        inputMappings[rawInputMappings[key]]->execute();
+      if (inputMappings.find(key) != inputMappings.end()) {
+        inputMappings[key]->execute();
       }
     }
 

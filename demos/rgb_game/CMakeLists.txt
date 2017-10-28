@@ -2,21 +2,17 @@ cmake_minimum_required(VERSION 3.7)
 
 project(Demo_Input)
 
-file(GLOB CPP_FILES src/main.cpp)
+file(GLOB_RECURSE CPP_FILES *.cpp)
+file(GLOB_RECURSE HEADER_FILES "*.h")
 
-#add_definitions(${DrystoneEngine_DEFINITIONS})
-
-add_executable(${PROJECT_NAME} ${CPP_FILES})
+add_executable(${PROJECT_NAME} ${CPP_FILES}
+                               ${HEADER_FILES})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC DrystoneEngine)
 target_include_directories(${PROJECT_NAME} PUBLIC ${DrystoneEngine_INCLUDE_DIRS})
 
-# copy .dlls to executable dir
-#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD       # Adds a post-build event to MyTest
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different          # which executes "cmake - E copy_if_different..."
-#        "${ROOT_DIR}/ext/SDL2/SDL2-2.0.7/lib/x64/SDL2.dll" # <--this is in-file
-#        $<TARGET_FILE_DIR:${PROJECT_NAME}>)                # <--this is out-file path
 
+# copy .dll:s to .exe folder on build
 
 macro(AddDll dllpath)
   add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD       # Adds a post-build event to MyTest
@@ -24,8 +20,6 @@ macro(AddDll dllpath)
               ${ROOT_DIR}/ext/${dllpath}                 # <--this is in-file
               $<TARGET_FILE_DIR:${PROJECT_NAME}>)                # <--this is out-file path
 endmacro()
-
-# Execute the macro
 
 set(CMAKE_PREFIX_PATH  "${CMAKE_SOURCE_DIR}/ext/glew-2.1.0")
 if (${CMAKE_SIZEOF_VOID_P} MATCHES 8)
