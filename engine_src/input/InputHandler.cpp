@@ -5,8 +5,13 @@
 InputHandler::InputHandler() {
 }
 
-void InputHandler::addInputMapping(const int key, InputCommand& command) {
-  inputMappings[key] = std::shared_ptr<InputCommand>(&command);
+void InputHandler::addInputMapping(const int key, std::shared_ptr<InputCommand> command) {
+  inputMappings[key] = std::shared_ptr<InputCommand>(command);
+}
+
+void InputHandler::addInputMapping(const int key, InputCommand* command) {
+  std::shared_ptr<InputCommand> cmd(command);
+  addInputMapping(key, cmd);
 }
 
 void InputHandler::removeInputMapping(const int key) {

@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.7)
 project(DrystoneEngine)
 
 # specify source files
+file(GLOB GAME_ENGINE        GameEngine.cpp)
 file(GLOB CORE_CPP           core/*.cpp)
 file(GLOB DATASTRUCTURES_CPP datastructures/*.cpp)
 file(GLOB INPUT_CPP          input/*.cpp)
@@ -17,7 +18,7 @@ file(GLOB_RECURSE HEADER_FILES "*.h")
 # The below macro was shamelessly stolen from:
 # https://cmake.org/pipermail/cmake/2013-November/056336.html
 
-# Organize the files in visual studio folders, according to 
+# Organize the files in visual studio folders, according to
 # the organization in the file systems
 macro(GroupSources curdir)
   file(GLOB children RELATIVE ${PROJECT_SOURCE_DIR}/${curdir} ${PROJECT_SOURCE_DIR}/${curdir}/*)
@@ -37,6 +38,10 @@ GroupSources("datastructures")
 GroupSources("input")
 GroupSources("world")
 
+# Source main files manually
+source_group(core FILES GameEngine.cpp)
+source_group(core FILES GameEngine.h)
+
 ### END STRUCTURE SOURCE FILES ###
 
 
@@ -46,7 +51,8 @@ set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_INCLUDE_DIR})
 include_directories(${OPENGL_INCLUDE_DIR})
 
-add_library(${PROJECT_NAME} ${CORE_CPP}
+add_library(${PROJECT_NAME} ${GAME_ENGINE}
+                            ${CORE_CPP}
                             ${DATASTRUCTURES_CPP}
                             ${INPUT_CPP}
                             ${WORLD_CPP}

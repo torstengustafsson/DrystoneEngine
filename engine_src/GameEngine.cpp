@@ -1,10 +1,10 @@
-#include "core/Game.h"
+#include "GameEngine.h"
 
 // initialize global variables
 // defined in "core/inc/Globals.h"
 bool Globals::quit = false;
 
-Game::Game(std::shared_ptr<InputHandler> inputHandler, const int fps)
+GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps)
   : inputHandler_(inputHandler),
     FPS(fps) {
 
@@ -21,15 +21,14 @@ Game::Game(std::shared_ptr<InputHandler> inputHandler, const int fps)
   }
 
   gameController_ = std::unique_ptr<GameController>(new GameController());
-  gameEngine_ = std::unique_ptr<GameEngine>(new GameEngine());
 }
 
-Game::Game(InputHandler& _inputHandler, const int fps)
-  : Game(std::shared_ptr<InputHandler>(&_inputHandler), fps) {
+GameEngine::GameEngine(const int fps)
+  : GameEngine(std::make_shared<InputHandler>(), fps) {
 }
 
 // perform one in-game frame
-void Game::frame() {
+void GameEngine::frame() {
   timer = std::chrono::high_resolution_clock::now();
   handleInput();
   update();
@@ -38,30 +37,30 @@ void Game::frame() {
 }
 
 // handles user input
-void Game::handleInput() {
+void GameEngine::handleInput() {
   inputHandler_->handleInput();
 }
 
 // updates game state
-void Game::update() {
+void GameEngine::update() {
   // handle game logic such as spawning new objects and events
   gameController_->frame();
 
   // handle object movements and collisions
   if (!gameController_->isPaused()) {
-    gameEngine_->frame(gameController_->getObjects());
+    // handle physics
   }
 }
 
 // performs all game rendering
-void Game::render() {
+void GameEngine::render() {
   if (!gameController_->isLoading()) {
     gameRenderer_->renderFrame(gameController_->getObjects());
   }
 }
 
 // locks framerate to a fixed value defined by 'FPS'
-void Game::delayFramerate() {
+void GameEngine::delayFramerate() {
   using namespace std::chrono;
   milliseconds frameTimeElapsed = duration_cast<milliseconds>(high_resolution_clock::now() - timer);
 
@@ -74,6 +73,22 @@ void Game::delayFramerate() {
   }
 }
 
-std::shared_ptr<InputHandler> Game::inputHandler() {
+#ifdef EMSCRIPTEN
+void GameEngine::main_loop() {
+  frame();
+}
+
+void GameEngine::run() {
+  emscripten_set_main_loop(main_loop, 60, 1);
+}
+#else
+void GameEngine::run() {
+  while (!Globals::quit) {
+    frame();
+  }
+}
+#endif
+
+std::shared_ptr<InputHandler> GameEngine::inputHandler() {
   return inputHandler_;
 }

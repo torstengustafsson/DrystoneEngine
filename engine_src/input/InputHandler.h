@@ -19,8 +19,13 @@ public:
   InputHandler & operator=(const InputHandler&) = delete;
   InputHandler(const InputHandler&) = delete;
 
-  void addInputMapping(const int key, InputCommand& command);
+  void addInputMapping(const int key, std::shared_ptr<InputCommand> command);
+  void addInputMapping(const int key, InputCommand* command);
   void removeInputMapping(const int key);
+
+  // this would be nice to have, but is difficult because 
+  // InputCommand is an interface (abstract class), and this is C++
+  //void addInputMapping(const int key, InputCommand& command);
 
   void handleInput();
 
