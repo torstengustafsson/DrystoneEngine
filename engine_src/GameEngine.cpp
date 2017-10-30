@@ -4,6 +4,7 @@
 // defined in "core/inc/Globals.h"
 bool Globals::quit = false;
 
+
 GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps)
   : inputHandler_(inputHandler),
     FPS(fps) {
@@ -26,6 +27,7 @@ GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps
 GameEngine::GameEngine(const int fps)
   : GameEngine(std::make_shared<InputHandler>(), fps) {
 }
+
 
 // perform one in-game frame
 void GameEngine::frame() {
@@ -88,6 +90,10 @@ void GameEngine::run() {
   }
 }
 #endif
+
+void GameEngine::addGameObject(std::shared_ptr<GameObject> o) {
+  gameController_->addGameObject(o);
+}
 
 std::shared_ptr<InputHandler> GameEngine::inputHandler() {
   return inputHandler_;

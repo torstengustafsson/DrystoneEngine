@@ -46,3 +46,4 @@ add_subdirectory(engine_src)
 
 # add demos
 add_subdirectory(demos/rgb_game)
+add_subdirectory(demos/geometry_game)

@@ -85,29 +85,29 @@ bool GameRenderer::setOpenGLAttributes()
   return true;
 }
 
-int GameRenderer::get_width() {
+int GameRenderer::getWidth() {
 	return SCREEN_WIDTH;
 }
 
-int GameRenderer::get_height() {
+int GameRenderer::getHeight() {
 	return SCREEN_HEIGHT;
 }
 
-void GameRenderer::renderFrame(std::vector<GameObject*> gameObjects) {
+void GameRenderer::renderFrame(std::vector<std::shared_ptr<GameObject>> gameObjects) {
   SCREEN_WIDTH = SDL_GetWindowSurface(gameWindow.get())->w;
   SCREEN_HEIGHT = SDL_GetWindowSurface(gameWindow.get())->h;
-	
+  glClear(GL_COLOR_BUFFER_BIT);
+
   // render objects to screen
   for(auto o : gameObjects) {
     renderObject(o);
   }
 
   // update screen
-  glClear(GL_COLOR_BUFFER_BIT);
   SDL_GL_SwapWindow(gameWindow.get());
 
 }
 
-void GameRenderer::renderObject(GameObject* o) {
+void GameRenderer::renderObject(std::shared_ptr<GameObject> o) {
   o->render();
 }

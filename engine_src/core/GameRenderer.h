@@ -18,14 +18,14 @@ public:
   GameRenderer() = default;
   ~GameRenderer();
 	
-  int get_width();
-  int get_height();
+  int getWidth();
+  int getHeight();
 	
   bool init();
   void close();
 	
-  void renderFrame(std::vector<GameObject*> v);
-  void renderObject(GameObject* o);
+  void renderFrame(std::vector<std::shared_ptr<GameObject>> v);
+  void renderObject(std::shared_ptr<GameObject> o);
 
 private:
   bool setOpenGLAttributes();

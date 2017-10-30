@@ -1,5 +1,15 @@
 #include "world/GameObject.h"
 
+GameObject::GameObject(std::shared_ptr<Mesh> _mesh)
+  : mesh(_mesh) {
+}
+
+void GameObject::render() {
+  if (mesh) {
+    mesh->render();
+  }
+}
+
 int GameObject::getCameraX() {
   return xPosCamera;
 }

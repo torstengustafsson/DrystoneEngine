@@ -25,7 +25,9 @@ public:
   void run();
 
   std::shared_ptr<InputHandler> inputHandler();
-
+  
+  void addGameObject(std::shared_ptr<GameObject> o);
+  
 private:
 
   void handleInput();

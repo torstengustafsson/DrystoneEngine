@@ -10,6 +10,7 @@ public:
   ~Shader();
 
   bool recompile();
+  void useProgram();
 
 private:
 

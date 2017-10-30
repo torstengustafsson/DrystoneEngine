@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <memory>
+#include <datastructures/geometries/inc/Mesh.h>
 
 /*
 * TODO: write description
@@ -8,9 +10,9 @@
 
 class GameObject {
 public:
-  virtual ~GameObject() = default;
+  GameObject(std::shared_ptr<Mesh> _mesh = nullptr);
 
-  virtual void render() = 0;
+  void render();
 
   int getCameraX();
   int getCameraY();
@@ -20,6 +22,9 @@ public:
 protected:
   // the name that will be displayed during player interaction etc.
   std::string name;
+
+  // components
+  std::shared_ptr<Mesh> mesh;
 
   // positions in world coordinates and camera coordinates
   int xPosCamera;

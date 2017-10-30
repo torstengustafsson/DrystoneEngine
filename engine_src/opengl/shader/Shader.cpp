@@ -10,7 +10,10 @@ Shader::Shader(std::string vs, std::string fs, std::string gs)
     geometryShader(gs) {
 
   shaderProgram = glCreateProgram();
-  recompile();
+  
+  if (!recompile()) {
+    printf("\nshader error!\n\n");
+  }
 }
 
 Shader::~Shader() {
@@ -27,9 +30,9 @@ bool Shader::recompile() {
     return false;
   }
 
-  if (!loadShader(geometryShader, GL_GEOMETRY_SHADER)) {
-    return false;
-  }
+//  if (!loadShader(geometryShader, GL_GEOMETRY_SHADER)) {
+//    return false;
+//  }
 
   if (!linkShaders()) {
     return false;
@@ -61,7 +64,9 @@ bool Shader::compileShader(int shaderId) {
   int wasCompiled = 0;
   glGetShaderiv(shaderId, GL_COMPILE_STATUS, &wasCompiled);
 
-  printShaderCompilationErrorInfo(shaderId);
+  if(!wasCompiled) {
+    printShaderCompilationErrorInfo(shaderId);
+  }
 
   // Return false if compilation failed
   return (wasCompiled != 0);
@@ -94,11 +99,11 @@ bool Shader::loadShader( const std::string &fileName, GLenum shaderType) {
     return true;
   }
 
+  std::cout << "error loading shader id: " << shaderId << std::endl;
   return false;
 }
 
-bool Shader::linkShaders()
-{
+bool Shader::linkShaders() {
   // Link. At this point, our shaders will be inspected/optized and the binary code generated
   // The binary code will then be uploaded to the GPU
   glLinkProgram(shaderProgram);
@@ -112,6 +117,11 @@ bool Shader::linkShaders()
   }
 
   return isLinked != 0;
+}
+
+// load the shader into the rendering pipeline
+void Shader::useProgram() {
+  glUseProgram(shaderProgram);
 }
 
 void Shader::cleanUp() {
@@ -165,9 +175,9 @@ void Shader::printShaderCompilationErrorInfo(int32_t shaderId)
 
   std::string log = shaderInfoLog;
 
-  if (log.length())
-  {
+  if (log.length()) {
     std::cout << "=======================================\n";
+    std::cout << "Error on shader id: " << shaderId << std::endl;
     std::cout << shaderInfoLog << std::endl;
     std::cout << "=======================================\n\n";
   }
