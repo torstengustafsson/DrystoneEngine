@@ -3,11 +3,7 @@ cmake_minimum_required(VERSION 3.7)
 project(DrystoneEngine)
 
 # specify source files
-file(GLOB GAME_ENGINE        GameEngine.cpp)
-file(GLOB CORE_CPP           core/*.cpp)
-file(GLOB DATASTRUCTURES_CPP datastructures/*.cpp)
-file(GLOB INPUT_CPP          input/*.cpp)
-file(GLOB WORLD_CPP          world/*.cpp)
+file(GLOB_RECURSE CPP_FILES "*.cpp")
 
 # specify header files
 file(GLOB_RECURSE HEADER_FILES "*.h")
@@ -36,6 +32,7 @@ endmacro()
 GroupSources("core")
 GroupSources("datastructures")
 GroupSources("input")
+GroupSources("opengl")
 GroupSources("world")
 
 # Source main files manually
@@ -51,11 +48,7 @@ set(PROJECT_INCLUDE_DIR ${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_INCLUDE_DIR})
 include_directories(${OPENGL_INCLUDE_DIR})
 
-add_library(${PROJECT_NAME} ${GAME_ENGINE}
-                            ${CORE_CPP}
-                            ${DATASTRUCTURES_CPP}
-                            ${INPUT_CPP}
-                            ${WORLD_CPP}
+add_library(${PROJECT_NAME} ${CPP_FILES}
                             ${HEADER_FILES})
 
 set(EXT_LIBRARIES ${OPENGL_LIBRARIES}
