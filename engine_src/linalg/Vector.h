@@ -1,13 +1,14 @@
 #pragma once
 
 #include <cmath>
-#include <initializer_list>
+#include "linalg/Matrix.h"
 
 /*
-* TODO: write description
+* Defines vectors in 2D, 3D and 4D.
+* Common vector and matrix operations are supported.
 */
 
-namespace vector {
+namespace linalg {
 
 // forward declarations
 class Vec2; 
@@ -16,7 +17,7 @@ class Vec4;
 
 class Vec2 {
 public:
-  Vec2(float x = 0.0f, float y = 0.0f);
+  Vec2(float _x = 0.0f, float _y = 0.0f);
   Vec2(const Vec4& v);
   Vec2(const Vec3& v);
 
@@ -36,7 +37,7 @@ public:
 
 class Vec3 {
 public:
-  Vec3(float x = 0.0f, float y = 0.0f, float z = 0.0f);
+  Vec3(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f);
   Vec3(const Vec4& v);
   Vec3(const Vec2& v);
 
@@ -56,7 +57,7 @@ public:
 
 class Vec4 {
 public:
-  Vec4(float x = 0.0f, float y = 0.0f, float z = 0.0f, float w = 0.0f);
+  Vec4(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f, float _w = 0.0f);
   Vec4(const Vec3& v);
   Vec4(const Vec2& v);
 
@@ -76,6 +77,10 @@ public:
 
 
 // helper functions
+
+inline Vec2 operator*(float f, const Vec2 &v);
+inline Vec3 operator*(float f, const Vec3 &v);
+inline Vec4 operator*(float f, const Vec4 &v);
 
 inline float length(Vec2& v) {
   return sqrt(pow(v.x, 2) + pow(v.y, 2));

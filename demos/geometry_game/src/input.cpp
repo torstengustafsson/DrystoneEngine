@@ -1,7 +1,7 @@
 #include "input.h"
 #include "input/inc/InputCommand.h"
 
-MoveCameraCommand::MoveCameraCommand(vector::Vec4 _direction, float _speed)
+MoveCameraCommand::MoveCameraCommand(linalg::Vec4 _direction, float _speed)
   : direction(_direction),
     speed(_speed) {
 }

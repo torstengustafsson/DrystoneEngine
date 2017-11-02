@@ -1,12 +1,12 @@
 #pragma once
 
-#include "datastructures/Vector.h"
+#include "linalg/Vector.h"
 #include "input/inc/InputCommand.h"
 
 class ChangeBGColorCommand : public InputCommand {
 public:
-  ChangeBGColorCommand(vector::Vec4 _color);
+  ChangeBGColorCommand(linalg::Vec4 _color);
   void execute() override;
 private:
-  vector::Vec4 color;
+  linalg::Vec4 color;
 };

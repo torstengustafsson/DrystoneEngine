@@ -32,6 +32,7 @@ endmacro()
 GroupSources("core")
 GroupSources("datastructures")
 GroupSources("input")
+GroupSources("linalg")
 GroupSources("opengl")
 GroupSources("world")
 

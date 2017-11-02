@@ -1,7 +1,6 @@
-#include <cmath>
-#include "datastructures/Vector.h"
+#include "linalg/Vector.h"
 
-namespace vector {
+namespace linalg {
 
 /// *** Vec2 *** ///
 
@@ -37,12 +36,16 @@ Vec2 Vec2::operator*(const float f) const {
   return Vec2(x * f, y * f);
 }
 
+Vec2 operator*(const float f, const Vec2 &v) {
+  return Vec2(v.x * f, v.y * f);
+}
+
 Vec2 Vec2::operator/(const float f) const {
   return Vec2(x / f, y / f);
 }
 
 Vec2 Vec2::normalize() {
-  return vector::normalize(*this);
+  return linalg::normalize(*this);
 }
 
 Vec2 Vec2::getNormalized() const {
@@ -51,7 +54,7 @@ Vec2 Vec2::getNormalized() const {
 }
 
 float Vec2::length() const {
-  return vector::length(*this);
+  return linalg::length(*this);
 }
 
 
@@ -81,6 +84,10 @@ float Vec3::operator*(const Vec3 v) const {
   return x * v.x + y * v.y + z * v.z;
 }
 
+Vec3 operator*(const float f, const Vec3 &v) {
+  return Vec3(v.x * f, v.y * f, v.z * f);
+}
+
 Vec3 Vec3::operator^(const Vec3 v) const {
   float _x = y * v.z - z * v.y;
   float _y = z * v.x - x * v.z;
@@ -97,7 +104,7 @@ Vec3 Vec3::operator/(const float f) const {
 }
 
 Vec3 Vec3::normalize() {
-  return vector::normalize(*this);
+  return linalg::normalize(*this);
 }
 
 Vec3 Vec3::getNormalized() const {
@@ -106,7 +113,7 @@ Vec3 Vec3::getNormalized() const {
 }
 
 float Vec3::length() const {
-  return vector::length(*this);
+  return linalg::length(*this);
 }
 
 
@@ -136,6 +143,10 @@ float Vec4::operator*(const Vec4 v) const {
   return x * v.x + y * v.y + z * v.z + w * v.w;
 }
 
+Vec4 operator*(const float f, const Vec4 &v) {
+  return Vec4(v.x * f, v.y * f, v.z * f);
+}
+
 Vec4 Vec4::operator*(const float f) const {
   return Vec4(x * f, y * f, z * f, w * f);
 }
@@ -145,7 +156,7 @@ Vec4 Vec4::operator/(const float f) const {
 }
 
 Vec4 Vec4::normalize() {
-  return vector::normalize(*this);
+  return linalg::normalize(*this);
 }
 
 Vec4 Vec4::getNormalized() const {
@@ -154,7 +165,7 @@ Vec4 Vec4::getNormalized() const {
 }
 
 float Vec4::length() const {
-  return vector::length(*this);
+  return linalg::length(*this);
 }
 
-} // namespace vector
+} // namespace linalg

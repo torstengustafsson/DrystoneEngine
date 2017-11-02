@@ -1,14 +1,14 @@
 #pragma once
 
-#include "datastructures/Vector.h"
+#include "linalg/Vector.h"
 #include "input/inc/InputCommand.h"
 
 class MoveCameraCommand : public InputCommand {
 public:
-  MoveCameraCommand(vector::Vec4 _direction, float _speed);
+  MoveCameraCommand(linalg::Vec4 _direction, float _speed);
   void execute() override;
 private:
-  vector::Vec4 direction;
+  linalg::Vec4 direction;
   int speed;
 };
 

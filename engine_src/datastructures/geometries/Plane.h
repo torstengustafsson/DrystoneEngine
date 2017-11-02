@@ -1,7 +1,7 @@
 
 #include <stdint.h>
 #include "datastructures/geometries/inc/Mesh.h"
-#include "datastructures/Vector.h"
+#include "linalg/Vector.h"
 
 #define NUM_VERTICES 4
 
@@ -11,6 +11,6 @@ public:
 
   void render() override;
 private:
-  vector::Vec3 positions[NUM_VERTICES];
-  vector::Vec3 normals[NUM_VERTICES];
+  linalg::Vec3 positions[NUM_VERTICES];
+  linalg::Vec3 normals[NUM_VERTICES];
 };
