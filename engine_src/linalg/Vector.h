@@ -17,7 +17,8 @@ class Vec4;
 
 class Vec2 {
 public:
-  Vec2(float _x = 0.0f, float _y = 0.0f);
+  Vec2(float f = 0.0f);
+  Vec2(float _x, float _y);
   Vec2(const Vec4& v);
   Vec2(const Vec3& v);
 
@@ -37,7 +38,8 @@ public:
 
 class Vec3 {
 public:
-  Vec3(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f);
+  Vec3(float f = 0.0f);
+  Vec3(float _x, float _y, float _z);
   Vec3(const Vec4& v);
   Vec3(const Vec2& v);
 
@@ -57,7 +59,8 @@ public:
 
 class Vec4 {
 public:
-  Vec4(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f, float _w = 0.0f);
+  Vec4(float f = 0.0f);
+  Vec4(float _x, float _y, float _z, float _w);
   Vec4(const Vec3& v);
   Vec4(const Vec2& v);
 

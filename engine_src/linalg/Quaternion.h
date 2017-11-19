@@ -17,7 +17,7 @@ class Quat {
 public:
   Quat(float _x, float _y, float _z, float _w);
   Quat(float f);
-  Quat(const Vec4& v);
+//  Quat(const Vec4& v); // TODO: why does this not compile? 
 
   Quat operator+(const Quat q) const;
   Quat operator-(const Quat q) const;

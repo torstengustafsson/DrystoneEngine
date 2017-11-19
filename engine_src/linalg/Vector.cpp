@@ -4,6 +4,10 @@ namespace linalg {
 
 /// *** Vec2 *** ///
 
+Vec2::Vec2(float f)
+  : x(f), y(f) {
+}
+
 Vec2::Vec2(float _x, float _y) 
   : x(_x), y(_y) {
 }
@@ -59,6 +63,10 @@ float Vec2::length() const {
 
 
 /// *** Vec3 *** ///
+
+Vec3::Vec3(float f)
+  : x(f), y(f), z(f) {
+}
 
 Vec3::Vec3(float _x, float _y, float _z)
   : x(_x), y(_y), z(_z) {
@@ -119,6 +127,10 @@ float Vec3::length() const {
 
 /// *** Vec4 *** ///
 
+Vec4::Vec4(float f)
+  : x(f), y(f), z(f), w(f) {
+}
+
 Vec4::Vec4(float _x, float _y, float _z, float _w)
   : x(_x), y(_y), z(_z), w(_w) {
 }
@@ -144,7 +156,7 @@ float Vec4::operator*(const Vec4 v) const {
 }
 
 Vec4 operator*(const float f, const Vec4 &v) {
-  return Vec4(v.x * f, v.y * f, v.z * f);
+  return Vec4(v.x * f, v.y * f, v.z * f, v.w *f);
 }
 
 Vec4 Vec4::operator*(const float f) const {
