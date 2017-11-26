@@ -3,6 +3,7 @@
 // initialize global variables
 // defined in "core/inc/Globals.h"
 bool Globals::quit = false;
+const std::string Globals::PATH = "../../../";
 
 
 GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps)

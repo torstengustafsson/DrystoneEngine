@@ -1,7 +1,8 @@
 #include "datastructures/geometries/Plane.h"
+#include "core/inc/Globals.h"
+#include "opengl/shader/Shader.h"
 #include "GL/glew.h"
 #include "SDL.h"
-#include "opengl/shader/Shader.h"
 
 Plane::Plane() 
   : Plane(linalg::Vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f) {
@@ -47,8 +48,8 @@ void Plane::render() {
   // create buffer
   GLuint vbo[2], vao[1];
 
-  Shader shader("D:/Projects/SDL2_OpenGL/engine_src/opengl/glsl/geometryrendering.vert", 
-                "D:/Projects/SDL2_OpenGL/engine_src/opengl/glsl/geometryrendering.frag");
+  Shader shader(Globals::PATH + "engine_src/opengl/glsl/geometryrendering.vert", 
+                Globals::PATH + "engine_src/opengl/glsl/geometryrendering.frag");
 
   // Generate and assign two Vertex Buffer Objects to our handle
   glGenBuffers(2, vbo);
