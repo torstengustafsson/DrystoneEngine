@@ -2,6 +2,7 @@
 
 namespace linalg {
 
+
 /// *** Vec2 *** ///
 
 Vec2::Vec2(float f)

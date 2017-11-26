@@ -3,6 +3,7 @@
 
 namespace linalg {
 
+
 /// *** Mat2 *** ///
 
 Mat2::Mat2() 
@@ -114,6 +115,26 @@ Mat4::Mat4(float f)
        f, f, f, f,
        f, f, f, f,
        f, f, f, f } {
+}
+
+void Mat4::setTranslation(const Vec3& pos) {
+  m[3]  = pos.x;
+  m[7]  = pos.y;
+  m[11] = pos.z;
+}
+
+void Mat4::setScale(const Vec3& scale) {
+  m[0]  = scale.x;
+  m[5]  = scale.y;
+  m[10] = scale.z;
+}
+
+Vec3 Mat4::getTranslation() const {
+  return Vec3(m[3], m[7], m[11]);
+}
+
+Vec3 Mat4::getScale() const {
+  return Vec3(m[0], m[5], m[10]);
 }
 
 } // namespace linalg

@@ -4,6 +4,10 @@
 #include <vector>
 #include "GL/glew.h"
 
+/*
+* TODO: write description
+*/
+
 class Shader {
 public:
   Shader(std::string vs, std::string fs = "", std::string gs = "");

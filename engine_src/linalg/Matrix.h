@@ -11,6 +11,9 @@
 
 namespace linalg {
 
+// forward declarations
+class Vec3;
+
 class Mat2 {
 public:
   Mat2(); // identity matrix
@@ -71,12 +74,21 @@ public:
        float f13, float f14, float f15, float f16);
   Mat4(float f);
 
+  void setTranslation(const Vec3& pos);
+  void setScale(const Vec3& scale);
+
+  Vec3 getTranslation() const;
+  Vec3 getScale() const;
+
   float m[16];
 };
 
 inline Mat2 operator*(float f, const Mat2 &m) {
   return m * f;
 }
+
+
+// helper functions
 
 //inline Mat3 operator*(float f, const Mat3 &v);
 

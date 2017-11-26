@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
   inputHandler->addInputMapping(SDLK_LEFT,  new MoveCameraCommand(linalg::Vec4(-1,  0, 0, 1), CAM_SPEED)); // move camera left
   inputHandler->addInputMapping(SDLK_RIGHT, new MoveCameraCommand(linalg::Vec4( 1,  0, 0, 1), CAM_SPEED)); // move camera right
   inputHandler->addInputMapping(SDLK_UP,    new MoveCameraCommand(linalg::Vec4( 0,  1, 0, 1), CAM_SPEED)); // move camera up
-  inputHandler->addInputMapping(SDLK_DOWN,  new MoveCameraCommand(linalg::Vec4(0, -1, 0, 1), CAM_SPEED));  // move camera down
+  inputHandler->addInputMapping(SDLK_DOWN,  new MoveCameraCommand(linalg::Vec4( 0, -1, 0, 1), CAM_SPEED));  // move camera down
   inputHandler->addInputMapping(SDLK_z,     new ZoomCameraCommand(true, CAM_SPEED));                       // zoom in
   inputHandler->addInputMapping(SDLK_x,     new ZoomCameraCommand(false, CAM_SPEED));                      // zoom out
 

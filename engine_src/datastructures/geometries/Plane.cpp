@@ -3,7 +3,15 @@
 #include "SDL.h"
 #include "opengl/shader/Shader.h"
 
-Plane::Plane() {
+Plane::Plane() 
+  : Plane(linalg::Vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f) {
+}
+
+Plane::Plane(linalg::Vec3 pos, float _width, float _height) 
+  : width(_width),
+    height(_height) {
+
+  transform.setTranslation(pos);
 }
 
 void Plane::render() {
