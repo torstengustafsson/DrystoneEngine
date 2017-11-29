@@ -8,6 +8,8 @@ file(GLOB_RECURSE CPP_FILES "*.cpp")
 # specify header files
 file(GLOB_RECURSE HEADER_FILES "*.h")
 
+set(SHADER_FILES "opengl/glsl/geometryrendering.frag"
+                 "opengl/glsl/geometryrendering.vert")
 
 ### STRUCTURE SOURCE FILES ###
 
@@ -50,7 +52,8 @@ include_directories(${PROJECT_INCLUDE_DIR})
 include_directories(${OPENGL_INCLUDE_DIR})
 
 add_library(${PROJECT_NAME} ${CPP_FILES}
-                            ${HEADER_FILES})
+                            ${HEADER_FILES}
+                            ${SHADER_FILES})
 
 set(EXT_LIBRARIES ${OPENGL_LIBRARIES}
                   ${SDL2_LIBRARIES}
