@@ -3,7 +3,8 @@
 #include <string>
 
 /*
-* Contains the necessary global state of the game
+* Contains the necessary global state of the game.
+* Initialized in GameEngine.cpp
 */
 
 struct Globals {

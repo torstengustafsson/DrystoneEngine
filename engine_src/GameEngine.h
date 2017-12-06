@@ -5,6 +5,7 @@
 #include "core/inc/Globals.h"
 #include "core/GameRenderer.h"
 #include "core/GameController.h"
+#include "core/Camera/Camera3D.h"
 #include "input/InputHandler.h"
 #include "world/GameObject.h"
 
@@ -46,10 +47,12 @@ private:
   // input handler handles user input such as key and mouse presses
   std::shared_ptr<InputHandler> inputHandler_;
 
+  // game renderer controls SDL window and renderer
+  std::shared_ptr<Camera3D> gameCamera_;
+
   // game controller handles game logic.
   std::unique_ptr<GameController> gameController_;
 
   // game renderer controls SDL window and renderer
   std::unique_ptr<GameRenderer> gameRenderer_;
-
 };
