@@ -2,7 +2,7 @@
 
 #include <string>
 #include <memory>
-#include <datastructures/geometries/inc/Mesh.h>
+#include <components/geometries/inc/Mesh.h>
 
 /*
 * TODO: write description

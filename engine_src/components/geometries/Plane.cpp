@@ -1,4 +1,4 @@
-#include "datastructures/geometries/Plane.h"
+#include "components/geometries/Plane.h"
 #include "core/inc/Globals.h"
 #include "opengl/shader/Shader.h"
 #include "GL/glew.h"

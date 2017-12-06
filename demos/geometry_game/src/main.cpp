@@ -1,5 +1,6 @@
 #include "GameEngine.h"
-#include "datastructures/geometries/Plane.h"
+#include "components/geometries/Plane.h"
+#include "core/Log.h"
 #include "input.h"
 
 #include <iostream>
@@ -10,6 +11,8 @@ int main(int argc, char *argv[]) {
   int fps = argc > 1 ? fps = std::stoi(argv[1]) : 10;
 
   const float CAM_SPEED = 10.0f;
+
+  log("hej");
 
   // add input
   std::shared_ptr<InputHandler> inputHandler = std::make_shared<InputHandler>();
