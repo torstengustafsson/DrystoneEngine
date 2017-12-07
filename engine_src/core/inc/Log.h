@@ -16,7 +16,7 @@ struct Logger {
 #endif
 
     const char* shortFile = (strrchr(file, slash) ? strrchr(file, slash) + 1 : file);
-    printf("Message: %s. (File: %s, Function: %s(), Line: %d)", message.c_str(), shortFile, func, line);
+    printf("{File: %20s, Function: %15s(), Line: %3d} Message: %s \n", shortFile, func, line, message.c_str());
   }
 };
 } // namespace log

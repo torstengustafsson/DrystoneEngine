@@ -1,8 +1,10 @@
 #include "input/InputHandler.h"
 #include "core/inc/Globals.h"
+#include "core/inc/Log.h"
 
 // default constructor initializes basic input commands
 InputHandler::InputHandler() {
+  log("Input Handler Created!");
 }
 
 void InputHandler::addInputMapping(const int key, std::shared_ptr<InputCommand> command) {

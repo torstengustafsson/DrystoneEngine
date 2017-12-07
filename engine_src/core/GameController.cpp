@@ -1,6 +1,8 @@
 #include "core/GameController.h"
+#include "core\inc\Log.h"
 
 GameController::GameController() {
+  log("Game Controller Created!");
 }
 
 void GameController::frame() {	

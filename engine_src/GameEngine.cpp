@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include "core/inc/Log.h"
 
 // initialize global variables
 // defined in "core/inc/Globals.h"
@@ -9,11 +10,12 @@ const std::string Globals::PATH = "../../../";
 GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps)
   : inputHandler_(inputHandler),
     FPS(fps) {
+  log("Starting Game Engine...");
 
   gameRenderer_ = std::unique_ptr<GameRenderer>(new GameRenderer());
 
   if (!gameRenderer_->init()) {
-    printf("Failed to initialize game renderer!\n");
+    log("Failed to initialize game renderer!");
     Globals::quit = true;
   }
 
@@ -23,6 +25,8 @@ GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps
   }
 
   gameController_ = std::unique_ptr<GameController>(new GameController());
+
+  log("Game Engine Started!");
 }
 
 GameEngine::GameEngine(const int fps)
