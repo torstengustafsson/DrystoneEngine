@@ -13,6 +13,7 @@ namespace linalg {
 
 // forward declarations
 class Vec3;
+class Quat;
 
 class Mat2 {
 public:
@@ -76,9 +77,11 @@ public:
 
   void setTranslation(const Vec3& pos);
   void setScale(const Vec3& scale);
+  void setOrientation(const Quat& orientation);
 
   Vec3 getTranslation() const;
   Vec3 getScale() const;
+  Quat getOrientation() const;
 
   float m[16];
 };
@@ -92,4 +95,4 @@ inline Mat2 operator*(float f, const Mat2 &m) {
 
 //inline Mat3 operator*(float f, const Mat3 &v);
 
-} // namespace vector
+} // namespace linalg

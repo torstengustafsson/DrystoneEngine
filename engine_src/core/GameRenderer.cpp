@@ -112,5 +112,5 @@ void GameRenderer::renderFrame(std::vector<std::shared_ptr<GameObject>> gameObje
 }
 
 void GameRenderer::renderObject(std::shared_ptr<GameObject> o) {
-  o->render();
+  o->render(gameCamera->getView(), gameCamera->getProjection());
 }

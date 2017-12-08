@@ -12,14 +12,13 @@
 class Plane : public Mesh {
 public:
   Plane();
-  Plane(linalg::Vec3 pos, float width, float height);
+  Plane(float width, float height);
 
-  void render() override;
+  void render(const linalg::Mat4& M, const linalg::Mat4& V, const linalg::Mat4& P) override;
 
 private:
   linalg::Vec3 positions[NUM_VERTICES];
   linalg::Vec3 normals[NUM_VERTICES];
 
-  linalg::Mat4 transform;
   float width, height;
 };

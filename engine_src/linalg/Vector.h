@@ -81,9 +81,9 @@ public:
 
 // helper functions
 
-inline Vec2 operator*(float f, const Vec2 &v);
-inline Vec3 operator*(float f, const Vec3 &v);
-inline Vec4 operator*(float f, const Vec4 &v);
+Vec2 operator*(float f, const Vec2 &v);
+Vec3 operator*(float f, const Vec3 &v);
+Vec4 operator*(float f, const Vec4 &v);
 
 inline float length(Vec2& v) {
   return sqrt(pow(v.x, 2) + pow(v.y, 2));
@@ -112,4 +112,4 @@ inline Vec4 normalize(Vec4& v) {
   return v;
 }
 
-} // namespace vector
+} // namespace linalg

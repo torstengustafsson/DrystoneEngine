@@ -59,4 +59,4 @@ float Quat::length() const {
   return linalg::length(*this);
 }
 
-} // namespace vector
+} // namespace linalg

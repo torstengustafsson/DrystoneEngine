@@ -1,5 +1,9 @@
 #pragma once
 
+#include "SDL.h"
+#include "SDL_image.h"
+#include "SDL_ttf.h"
+
 /*
 * Deleter for SDL windows, renderers and textures.
 * To be used as deleters for c++ smart pointers.

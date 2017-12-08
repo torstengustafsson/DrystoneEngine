@@ -33,7 +33,6 @@ GameEngine::GameEngine(const int fps)
   : GameEngine(std::make_shared<InputHandler>(), fps) {
 }
 
-
 // perform one in-game frame
 void GameEngine::frame() {
   timer = std::chrono::high_resolution_clock::now();

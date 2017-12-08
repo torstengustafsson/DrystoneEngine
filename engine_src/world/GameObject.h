@@ -1,8 +1,10 @@
 #pragma once
 
+#include <components/geometries/inc/Mesh.h>
+#include "linalg/linalg.h"
+
 #include <string>
 #include <memory>
-#include <components/geometries/inc/Mesh.h>
 
 /*
 * TODO: write description
@@ -12,12 +14,13 @@ class GameObject {
 public:
   GameObject(std::shared_ptr<Mesh> _mesh = nullptr);
 
-  void render();
+  void render(const linalg::Mat4& V, const linalg::Mat4& P);
 
-  int getCameraX();
-  int getCameraY();
-  int getWorldX();
-  int getWorldY();
+  void setTranslation(const linalg::Vec3& pos);
+  void translate(const linalg::Vec3& vec);
+
+  linalg::Vec3 getPosition() const;
+  std::shared_ptr<Mesh> getMesh() const;
 
 protected:
   // the name that will be displayed during player interaction etc.
@@ -25,10 +28,5 @@ protected:
 
   // components
   std::shared_ptr<Mesh> mesh;
-
-  // positions in world coordinates and camera coordinates
-  int xPosCamera;
-  int yPosCamera;
-  int xPosWorld;
-  int yPosWorld;
+  linalg::Mat4 transform;
 };

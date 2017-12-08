@@ -1,8 +1,9 @@
 
-#include <fstream>
-#include <sstream>
-#include <iostream>
 #include "opengl/shader/Shader.h"
+#include "core/inc/Log.h"
+
+#include <sstream>
+#include <fstream>
 
 Shader::Shader(std::string vs, std::string fs, std::string gs)
   : vertexShader(vs),
@@ -12,7 +13,7 @@ Shader::Shader(std::string vs, std::string fs, std::string gs)
   shaderProgram = glCreateProgram();
   
   if (!recompile()) {
-    printf("\nshader error!\n\n");
+    log("\nshader error (could not recompile)!\n");
   }
 }
 
@@ -99,7 +100,7 @@ bool Shader::loadShader( const std::string &fileName, GLenum shaderType) {
     return true;
   }
 
-  std::cout << "error loading shader id: " << shaderId << std::endl;
+  log("error loading shader id: " + std::to_string(shaderId));
   return false;
 }
 
@@ -140,20 +141,20 @@ void Shader::cleanUp() {
 
 void Shader::printShaderLinkingError(int32_t shaderId)
 {
-  std::cout << "=======================================\n";
-  std::cout << "Shader linking failed : " << std::endl;
+  log("=======================================\n");
+  log("Shader linking failed : ");
 
   // Find length of shader info log
   int maxLength;
   glGetProgramiv(shaderId, GL_INFO_LOG_LENGTH, &maxLength);
 
-  std::cout << "Info Length : " << maxLength << std::endl;
+  log("Info Length : " + std::to_string(maxLength));
 
   // Get shader info log
   char* shaderProgramInfoLog = new char[maxLength];
   glGetProgramInfoLog(shaderProgram, maxLength, &maxLength, shaderProgramInfoLog);
 
-  std::cout << "Linker error message : " << shaderProgramInfoLog << std::endl;
+  log("Linker error message : " + std::string(shaderProgramInfoLog));
 
   /* Handle the error in an appropriate way such as displaying a message or writing to a log file. */
   /* In this simple program, we'll just leave */
@@ -176,10 +177,10 @@ void Shader::printShaderCompilationErrorInfo(int32_t shaderId)
   std::string log = shaderInfoLog;
 
   if (log.length()) {
-    std::cout << "=======================================\n";
-    std::cout << "Error on shader id: " << shaderId << std::endl;
-    std::cout << shaderInfoLog << std::endl;
-    std::cout << "=======================================\n\n";
+    log("=======================================\n");
+    log("Error on shader id: " + std::to_string(shaderId));
+    log(std::string(shaderInfoLog));
+    log("=======================================\n");
   }
   // Print shader info log
   delete shaderInfoLog;

@@ -1,13 +1,16 @@
 #pragma once
 
-#include <vector>
-#include <memory>
+#include "core/inc/sdl_deleter.h"
+#include "world/GameObject.h"
+#include "core/Camera/Camera3D.h"
+
 #include "SDL.h"
 #include "SDL_image.h"
 #include "SDL_ttf.h"
 #include "GL/glew.h"
-#include "core/inc/sdl_deleter.h"
-#include "world/GameObject.h"
+
+#include <vector>
+#include <memory>
 
 /*
 * TODO: write description
@@ -31,7 +34,8 @@ private:
   bool setOpenGLAttributes();
 
   std::unique_ptr<SDL_Window, sdl_deleter> gameWindow;
-  
+  std::shared_ptr<Camera3D> gameCamera;
+
   // OpenGL context handle
   SDL_GLContext mainContext;
 

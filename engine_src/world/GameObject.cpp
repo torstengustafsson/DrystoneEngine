@@ -4,21 +4,24 @@ GameObject::GameObject(std::shared_ptr<Mesh> _mesh)
   : mesh(_mesh) {
 }
 
-void GameObject::render() {
+void GameObject::render(const linalg::Mat4& V, const linalg::Mat4& P) {
   if (mesh) {
-    mesh->render();
+    mesh->render(transform, V, P);
   }
 }
 
-int GameObject::getCameraX() {
-  return xPosCamera;
+void GameObject::setTranslation(const linalg::Vec3& pos) {
+  transform.setTranslation(pos);
 }
-int GameObject::getCameraY() {
-  return yPosCamera;
+
+void GameObject::translate(const linalg::Vec3& vec) {
+  setTranslation(getPosition() + vec);
 }
-int GameObject::getWorldX() {
-  return xPosWorld;
+
+linalg::Vec3 GameObject::getPosition() const {
+  return transform.getTranslation();
 }
-int GameObject::getWorldY() {
-  return yPosWorld;
+
+std::shared_ptr<Mesh> GameObject::getMesh() const {
+  return mesh;
 }

@@ -1,35 +1,43 @@
 #include "components/geometries/Plane.h"
 #include "core/inc/Globals.h"
 #include "opengl/shader/Shader.h"
-#include "GL/glew.h"
-#include "SDL.h"
 
 Plane::Plane() 
-  : Plane(linalg::Vec3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f) {
+  : Plane(1.0f, 1.0f) {
 }
 
-Plane::Plane(linalg::Vec3 pos, float _width, float _height) 
+Plane::Plane(float _width, float _height) 
   : width(_width),
     height(_height) {
-
-  transform.setTranslation(pos);
 }
 
-void Plane::render() {
+void Plane::render(const linalg::Mat4& M, const linalg::Mat4& V, const linalg::Mat4& P) {
+
+  linalg::Vec3 pos = M.getTranslation();
 
   // tutorial
   const uint32_t points = 6;
   const uint32_t floatsPerPoint = 3;
   const uint32_t floatsPerColor = 4;
 
-  const GLfloat square[points][floatsPerPoint] = {
-    { -0.5,  0.5,  0.5 }, // triangle 1
-    {  0.5,  0.5,  0.5 },
-    {  0.5, -0.5,  0.5 }, 
+  //const GLfloat square[points][floatsPerPoint] = {
+  //  { -width,  height,  0.5 }, // triangle 1
+  //  {  width,  height,  0.5 },
+  //  {  width, -height,  0.5 },
 
-    { -0.5,  0.5,  0.5 }, // triangle 2
-    { 0.5, -0.5,  0.5 },
-    { -0.5, -0.5,  0.5 },
+  //  { -width,  height,  0.5 }, // triangle 2
+  //  {  width, -height,  0.5 },
+  //  { -width, -height,  0.5 },
+  //};
+
+  const GLfloat square[points][floatsPerPoint] = {
+    { pos.x - width, pos.y + height,  0.5 }, // triangle 1
+    { pos.x + width, pos.y + height,  0.5 },
+    { pos.x + width, pos.y - height,  0.5 },
+
+    { pos.x - width, pos.y + height,  0.5 }, // triangle 2
+    { pos.x + width, pos.y - height,  0.5 },
+    { pos.x - width, pos.y - height,  0.5 },
   };
 
   const GLfloat colors[points][floatsPerColor] = {

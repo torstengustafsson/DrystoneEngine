@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cmath>
 #include "linalg/Vector.h"
+#include <cmath>
 
 /*
 * Defines quaternions with common operations.
@@ -44,4 +44,4 @@ inline Quat normalize(Quat& q) {
   return q;
 }
 
-} // namespace vector
+} // namespace linalg

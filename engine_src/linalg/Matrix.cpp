@@ -129,6 +129,10 @@ void Mat4::setScale(const Vec3& scale) {
   m[10] = scale.z;
 }
 
+void Mat4::setOrientation(const Quat& orientation) {
+  //TODO
+}
+
 Vec3 Mat4::getTranslation() const {
   return Vec3(m[3], m[7], m[11]);
 }
@@ -136,5 +140,11 @@ Vec3 Mat4::getTranslation() const {
 Vec3 Mat4::getScale() const {
   return Vec3(m[0], m[5], m[10]);
 }
+
+Quat Mat4::getOrientation() const {
+  // TODO
+  return Quat(0,0,0,1);
+}
+
 
 } // namespace linalg

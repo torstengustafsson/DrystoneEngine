@@ -1,22 +1,18 @@
 #pragma once
 
 #include "linalg/Vector.h"
-#include "input/inc/InputCommand.h"
+#include "world/GameObject.h"
+#include "input/InputHandler.h"
 
-class MoveCameraCommand : public InputCommand {
+#include <memory>
+
+class MoveObjectCommand : public InputCommand {
 public:
-  MoveCameraCommand(linalg::Vec4 _direction, float _speed);
+  MoveObjectCommand(std::shared_ptr<GameObject> _object, linalg::Vec3 _direction, float _speed);
   void execute() override;
 private:
-  linalg::Vec4 direction;
-  int speed;
-};
+  void print();
 
-class ZoomCameraCommand: public InputCommand {
-public:
-  ZoomCameraCommand(bool _zoomIn, float speed);
-  void execute() override;
-private:
-  bool zoomIn;
-  float speed;
+  std::shared_ptr<GameObject> object;
+  linalg::Vec3 direction;
 };

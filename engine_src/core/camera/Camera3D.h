@@ -30,5 +30,5 @@ private:
   linalg::Vec2 aspect;
 
   linalg::Mat4 projection;
-  linalg::Mat4 transform;
+  linalg::Mat4 view;
 };
