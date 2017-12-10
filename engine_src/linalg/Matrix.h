@@ -83,11 +83,13 @@ public:
   Vec3 getScale() const;
   Quat getOrientation() const;
 
+  void print() const;
+
   float m[16];
 };
 
-inline Mat2 operator*(float f, const Mat2 &m) {
-  return m * f;
+inline Mat2 operator*(float f, const Mat2 &mat) {
+  return mat * f;
 }
 
 

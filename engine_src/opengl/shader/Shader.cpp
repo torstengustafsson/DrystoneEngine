@@ -4,6 +4,7 @@
 
 #include <sstream>
 #include <fstream>
+#include <string>
 
 Shader::Shader(std::string vs, std::string fs, std::string gs)
   : vertexShader(vs),
@@ -12,34 +13,52 @@ Shader::Shader(std::string vs, std::string fs, std::string gs)
 
   shaderProgram = glCreateProgram();
   
-  if (!recompile()) {
-    log("\nshader error (could not recompile)!\n");
+  if (!compile()) {
+    log("\nshader error (could not compile)!\n");
   }
 }
 
 Shader::~Shader() {
-  cleanUp();
+  glUseProgram(0);
+  glDeleteShader(shaderProgram);
 }
 
-bool Shader::recompile() {
+bool Shader::compile() {
 
-  if (!loadShader(vertexShader, GL_VERTEX_SHADER)) {
+  // Create shader objects
+  int shaderVert = createShaderObject(vertexShader, GL_VERTEX_SHADER);
+  int shaderFrag = createShaderObject(fragmentShader, GL_FRAGMENT_SHADER);
+  
+  if (!shaderVert || !shaderFrag) {
     return false;
   }
 
-  if (!loadShader(fragmentShader, GL_FRAGMENT_SHADER)) {
+  // Compile individual shaders
+  if (!compileAndAttachShader(shaderVert)) {
     return false;
   }
 
-//  if (!loadShader(geometryShader, GL_GEOMETRY_SHADER)) {
-//    return false;
-//  }
+  if (!compileAndAttachShader(shaderFrag)) {
+    return false;
+  }
 
+  // link shader program
   if (!linkShaders()) {
     return false;
   }
 
   return true;
+}
+
+// load the shader into the rendering pipeline
+void Shader::useProgram() {
+  glUseProgram(shaderProgram);
+}
+
+// set a single uniform
+void Shader::setUniform(const std::string& name, const linalg::Mat4& value) {
+  GLint location = findUniformLocation(name);
+  glUniformMatrix4fv(location, 1, GL_TRUE, value.m);
 }
 
 std::string Shader::readFile(const char* fileName) {
@@ -57,51 +76,21 @@ std::string Shader::readFile(const char* fileName) {
 }
 
 // Tries to compile the shader. Returns false if something fails
-bool Shader::compileShader(int shaderId) {
+bool Shader::compileAndAttachShader(int shaderId) {
   
   glCompileShader(shaderId);
 
-  // Ask OpenGL if the shaders was compiled
   int wasCompiled = 0;
   glGetShaderiv(shaderId, GL_COMPILE_STATUS, &wasCompiled);
 
-  if(!wasCompiled) {
-    printShaderCompilationErrorInfo(shaderId);
-  }
+  printShaderCompilationErrorInfo(shaderId);
 
-  // Return false if compilation failed
-  return (wasCompiled != 0);
-}
-
-int Shader::createShader(const std::string &fileName, GLenum shaderType) {
-  // Read file as std::string 
-  std::string str = readFile(fileName.c_str());
-
-  // c_str() gives us a const char*, but we need a non-const one
-  char* src = const_cast<char*>(str.c_str());
-  int32_t size = str.length();
-
-  // Create an empty vertex shader handle
-  int shaderId = glCreateShader(shaderType);
-
-  // Send the vertex shader source code to OpenGL
-  glShaderSource(shaderId, 1, &src, &size);
-
-  return shaderId;
-}
-
-bool Shader::loadShader( const std::string &fileName, GLenum shaderType) {
-
-  int shaderId = createShader(fileName, shaderType);
-
-  if (compileShader(shaderId)) {
+  if (wasCompiled) {
     glAttachShader(shaderProgram, shaderId);
     shaderIds.push_back(shaderId);
-    return true;
   }
 
-  log("error loading shader id: " + std::to_string(shaderId));
-  return false;
+  return (wasCompiled != 0);
 }
 
 bool Shader::linkShaders() {
@@ -120,41 +109,55 @@ bool Shader::linkShaders() {
   return isLinked != 0;
 }
 
-// load the shader into the rendering pipeline
-void Shader::useProgram() {
-  glUseProgram(shaderProgram);
+int Shader::createShaderObject(const std::string &fileName, GLenum shaderType) {
+  // Read file as std::string 
+  std::string str = readFile(fileName.c_str());
+
+  // c_str() gives us a const char*, but we need a non-const one
+  char* src = const_cast<char*>(str.c_str());
+  int32_t size = str.length();
+
+  // Create an empty vertex shader handle
+  int shaderId = glCreateShader(shaderType);
+
+  // Send the vertex shader source code to OpenGL
+  glShaderSource(shaderId, 1, &src, &size);
+
+  return shaderId;
 }
 
-void Shader::cleanUp() {
-  glUseProgram(0);
-
-  for (auto i : shaderIds) {
-    glDetachShader(shaderProgram, i);
+GLint Shader::findUniformLocation(const std::string &name) const {
+  auto it = uniformLookups.find(name);
+  if (it != uniformLookups.end()) {
+    return it->second;
   }
+  else {
+    GLint location = glGetUniformLocation(shaderProgram, name.c_str());
+    uniformLookups[name] = location;
 
-  glDeleteProgram(shaderProgram);
-
-  for (auto i : shaderIds) {
-    glDeleteShader(i);
+    return location;
   }
 }
 
 void Shader::printShaderLinkingError(int32_t shaderId)
 {
-  log("=======================================\n");
-  log("Shader linking failed : ");
+  std::string message = "";
+  message += "=======================================\n";
+  message += "Shader linking failed : \n";
 
   // Find length of shader info log
   int maxLength;
   glGetProgramiv(shaderId, GL_INFO_LOG_LENGTH, &maxLength);
 
-  log("Info Length : " + std::to_string(maxLength));
+  message += "Info Length : " + std::to_string(maxLength);
 
   // Get shader info log
   char* shaderProgramInfoLog = new char[maxLength];
   glGetProgramInfoLog(shaderProgram, maxLength, &maxLength, shaderProgramInfoLog);
 
-  log("Linker error message : " + std::string(shaderProgramInfoLog));
+  message += "Linker error message : " + std::string(shaderProgramInfoLog) + "\n";
+
+  log(message);
 
   /* Handle the error in an appropriate way such as displaying a message or writing to a log file. */
   /* In this simple program, we'll just leave */
@@ -174,13 +177,16 @@ void Shader::printShaderCompilationErrorInfo(int32_t shaderId)
   char* shaderInfoLog = new char[maxLength];
   glGetShaderInfoLog(shaderId, maxLength, &maxLength, shaderInfoLog);
 
-  std::string log = shaderInfoLog;
+  std::string shaderLog = shaderInfoLog;
 
-  if (log.length()) {
-    log("=======================================\n");
-    log("Error on shader id: " + std::to_string(shaderId));
-    log(std::string(shaderInfoLog));
-    log("=======================================\n");
+  if (shaderLog.find("warning") != std::string::npos ||
+      shaderLog.find("error") != std::string::npos) {
+    std::string message = "";
+    message += "=======================================\n";
+    message += "Shader id(" + std::to_string(shaderId) + ") - ";
+    message += std::string(shaderInfoLog) + "\n";
+    message += "=======================================\n";
+    log(message);
   }
   // Print shader info log
   delete shaderInfoLog;

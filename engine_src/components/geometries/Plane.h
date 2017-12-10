@@ -1,9 +1,12 @@
 
 #include <stdint.h>
 #include "components/geometries/inc/Mesh.h"
+#include "opengl/shader/Shader.h"
 #include "linalg/linalg.h"
 
 #define NUM_VERTICES 4
+#define POINTS 6
+#define FLOATSPERPOINT 3
 
 /*
 * TODO: write description
@@ -19,6 +22,8 @@ public:
 private:
   linalg::Vec3 positions[NUM_VERTICES];
   linalg::Vec3 normals[NUM_VERTICES];
+
+  GLfloat square[POINTS][FLOATSPERPOINT];
 
   float width, height;
 };

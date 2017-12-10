@@ -1,5 +1,7 @@
-#include <iostream>
+#include "core/inc/Log.h"
 #include "linalg/Matrix.h"
+
+#define str std::to_string
 
 namespace linalg {
 
@@ -60,7 +62,7 @@ Mat2 Mat2::getInverse() const {
   // check if inverse exist
   // if not, return 0 matrix
   if (getDeterminant() == 0) {
-     std::cout << "Error: trying top get inverse of matrix that has no inverse!\n";
+    log_verbose("Error: trying top get inverse of matrix that has no inverse!\n");
      return Mat2(0.0f);
   }
 
@@ -146,5 +148,13 @@ Quat Mat4::getOrientation() const {
   return Quat(0,0,0,1);
 }
 
+void Mat4::print() const {
+
+  std::string output = "{ " + str(m[0])  + ", " + str(m[1])  + ", " + str(m[2])  + ", " + str(m[3])  + ",\n" + 
+                       "  " + str(m[4])  + ", " + str(m[5])  + ", " + str(m[6])  + ", " + str(m[7])  + ",\n" +
+                       "  " + str(m[8])  + ", " + str(m[9])  + ", " + str(m[10]) + ", " + str(m[11]) + ",\n" +
+                       "  " + str(m[12]) + ", " + str(m[13]) + ", " + str(m[14]) + ", " + str(m[15]) + " }\n";
+  log(output);
+}
 
 } // namespace linalg

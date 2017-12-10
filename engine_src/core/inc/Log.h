@@ -8,7 +8,7 @@
 
 namespace logging {
 struct Logger {
-  static void log(std::string message, const char* file, const char* func, int line) {
+  static void log_(std::string message, const char* file, const char* func, int line) {
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
     const char slash = '\\';
 #else
@@ -18,8 +18,13 @@ struct Logger {
     const char* shortFile = (strrchr(file, slash) ? strrchr(file, slash) + 1 : file);
     printf("%s {File: %s, Function: %s(), Line: %d} \n", message.c_str(), shortFile, func, line);
   }
+
+  static void log_(std::string message) {
+    printf("%s\n", message.c_str());
+  }
 };
 } // namespace log
 
 
-#define log(message) logging::Logger::log(message, __FILE__, __func__, __LINE__)
+#define log(message) logging::Logger::log_(message)
+#define log_verbose(message) logging::Logger::log_(message, __FILE__, __func__, __LINE__)
