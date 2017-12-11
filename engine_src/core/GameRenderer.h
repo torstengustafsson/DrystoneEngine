@@ -30,6 +30,8 @@ public:
   void renderFrame(std::vector<std::shared_ptr<GameObject>> v);
   void renderObject(std::shared_ptr<GameObject> o);
 
+  void printOpenGlInfo();
+
 private:
   bool setOpenGLAttributes();
 

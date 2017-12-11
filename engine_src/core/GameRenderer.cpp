@@ -40,6 +40,8 @@ bool GameRenderer::init() {
   // create opengl context and attach it to game window
   mainContext = SDL_GL_CreateContext(gameWindow.get());
 
+  printOpenGlInfo();
+
   setOpenGLAttributes();
 
   // syncronize buffer swap with the monitor's vertical refresh
@@ -113,4 +115,14 @@ void GameRenderer::renderFrame(std::vector<std::shared_ptr<GameObject>> gameObje
 
 void GameRenderer::renderObject(std::shared_ptr<GameObject> o) {
   o->render(gameCamera->getView(), gameCamera->getProjection());
+}
+
+void GameRenderer::printOpenGlInfo() {
+  std::string message = "\nOpenGL Info:\n";
+  char* openGlVersion = (char*)glGetString(GL_VERSION);
+  char* shaderVersion = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
+//printf(openGlVersion);
+  message += "  - OpenGL version: " + std::string(openGlVersion) + "\n";
+  message += "  - GLSL version: " + std::string(shaderVersion) + "\n";
+  log(message);
 }

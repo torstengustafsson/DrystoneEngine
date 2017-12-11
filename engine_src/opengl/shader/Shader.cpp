@@ -10,8 +10,6 @@ Shader::Shader(std::string vs, std::string fs, std::string gs)
   : vertexShader(vs),
     fragmentShader(fs),
     geometryShader(gs) {
-
-  shaderProgram = glCreateProgram();
   
   if (!compile()) {
     log("\nshader error (could not compile)!\n");
@@ -30,20 +28,24 @@ bool Shader::compile() {
   int shaderFrag = createShaderObject(fragmentShader, GL_FRAGMENT_SHADER);
   
   if (!shaderVert || !shaderFrag) {
+    log_verbose("Error: Shader object could not be created");
     return false;
   }
 
   // Compile individual shaders
   if (!compileAndAttachShader(shaderVert)) {
+    log_verbose("Error: Vertex shader compile error");
     return false;
   }
 
   if (!compileAndAttachShader(shaderFrag)) {
+    log_verbose("Error: Fragment shader compile error");
     return false;
   }
 
   // link shader program
   if (!linkShaders()) {
+    log_verbose("Error: Shader linking failed");
     return false;
   }
 
@@ -180,7 +182,7 @@ void Shader::printShaderCompilationErrorInfo(int32_t shaderId)
   std::string shaderLog = shaderInfoLog;
 
   if (shaderLog.find("warning") != std::string::npos ||
-      shaderLog.find("error") != std::string::npos) {
+      shaderLog.find("ERROR") != std::string::npos) {
     std::string message = "";
     message += "=======================================\n";
     message += "Shader id(" + std::to_string(shaderId) + ") - ";

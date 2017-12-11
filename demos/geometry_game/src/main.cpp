@@ -1,5 +1,5 @@
 #include "GameEngine.h"
-#include "components/geometries/Plane.h"
+#include "world/GameObjectFactory.h"
 #include "core/inc/Log.h"
 #include "input.h"
 
@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 
   const float MOVE_SPEED = 0.1f;
 
-  auto thePlane = std::make_shared<GameObject>(std::make_shared<Plane>(0.5, 0.5));
+  auto thePlane = GameObjectFactory::createPlane(0.5, 0.5);
 
   // add input
   std::shared_ptr<InputHandler> inputHandler = std::make_shared<InputHandler>();
