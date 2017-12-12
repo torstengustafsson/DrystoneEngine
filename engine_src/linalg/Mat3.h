@@ -1,8 +1,6 @@
 #pragma once
 
 #include <cmath>
-#include "linalg/Vec3.h"
-#include "linalg/Quaternion.h"
 
 /*
 * Defines matrices in 3x3 format.

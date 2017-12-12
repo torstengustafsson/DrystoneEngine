@@ -1,7 +1,7 @@
 #include "GameEngine.h"
 #include "input.h"
 
-#include <iostream>
+#include <string>
 #include <memory>
 
 int main(int argc, char *argv[]) {

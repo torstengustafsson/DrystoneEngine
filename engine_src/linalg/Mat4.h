@@ -29,6 +29,9 @@ public:
   Vec3 getScale() const;
   Quat getOrientation() const;
 
+  Mat4& operator*(const Mat4& rhs) const;
+  bool operator==(const Mat4& rhs);
+
   void print() const;
 
   float m[16];

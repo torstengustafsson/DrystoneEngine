@@ -1,8 +1,10 @@
+#pragma once 
+
+#include "components/geometries/inc/Mesh.h"
+#include "linalg/Vec3.h"
 
 #include <stdint.h>
-#include "components/geometries/inc/Mesh.h"
-#include "opengl/shader/Shader.h"
-#include "linalg/linalg.h"
+#include "GL/glew.h"
 
 #define NUM_VERTICES 4
 #define POINTS 6

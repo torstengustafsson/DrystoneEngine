@@ -1,5 +1,6 @@
 #pragma once
 
+#include "linalg/Constants.h"
 #include "linalg/Vec2.h"
 #include "linalg/Vec3.h"
 #include "linalg/Vec4.h"
@@ -12,6 +13,9 @@
 * Contains all includes for the linear algebra package built 
 * for the Drystone Game Engine!
 *
+* Should not be used too extensively. It is recommended to include only the
+* linalg classes necessary to shorten build times.
+*
 * Packages include:
 *   - Vectors (2D, 3D and 4D)
 *   - Matrices (2D, 3D and 4D)
@@ -21,8 +25,3 @@
 *
 */
 
-namespace linalg {
-
-const double PI = 3.1415926535;
-
-} // namepsace linalg

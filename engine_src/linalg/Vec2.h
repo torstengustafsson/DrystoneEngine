@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cmath>
-#include "linalg/Mat2.h"
 
 /*
 * Defines vectors in 2D.

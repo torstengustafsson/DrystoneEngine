@@ -1,7 +1,6 @@
 #pragma once
 
 #include "core/inc/sdl_deleter.h"
-#include "world/GameObject.h"
 #include "core/Camera/Camera3D.h"
 
 #include "SDL.h"
@@ -15,6 +14,9 @@
 /*
 * TODO: write description
 */
+
+// forward declarations
+class GameObject;
 
 class GameRenderer {
 public:

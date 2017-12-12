@@ -1,4 +1,6 @@
 #include "components/Transform.h"
+#include "linalg/Vec3.h"
+#include "linalg/Quaternion.h"
 
 Transform::Transform() {
 }

@@ -1,4 +1,5 @@
 #include "components/geometries/Plane.h"
+#include "opengl/shader/Shader.h"
 #include "core/inc/Globals.h"
 
 Plane::Plane() 
@@ -31,7 +32,7 @@ void Plane::render(const linalg::Mat4& M, const linalg::Mat4& V, const linalg::M
                 Globals::PATH + "engine_src/opengl/glsl/geometryrendering.frag");
 
   // Generate and assign two Vertex Buffer Objects to our handle
-  glGenBuffers(2, vbo);
+  glGenBuffers(1, vbo);
 
   // Generate and assign a Vertex Array Object to our handle
   glGenVertexArrays(1, vao);

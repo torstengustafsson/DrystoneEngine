@@ -1,7 +1,7 @@
 #include "linalg/Vec3.h"
-
 #include "linalg/Vec2.h"
 #include "linalg/Vec4.h"
+#include "linalg/Mat3.h"
 
 namespace linalg {
 

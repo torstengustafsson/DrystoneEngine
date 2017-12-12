@@ -1,16 +1,17 @@
-
 #include "opengl/shader/Shader.h"
+#include "linalg/Mat4.h"
 #include "core/inc/Log.h"
 
 #include <sstream>
 #include <fstream>
-#include <string>
 
 Shader::Shader(std::string vs, std::string fs, std::string gs)
   : vertexShader(vs),
     fragmentShader(fs),
     geometryShader(gs) {
   
+  shaderProgram = glCreateProgram();
+
   if (!compile()) {
     log("\nshader error (could not compile)!\n");
   }

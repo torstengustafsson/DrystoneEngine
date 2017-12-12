@@ -1,7 +1,5 @@
 #pragma once
 
-#include "linalg/linalg.h"
-
 #include <string>
 #include <vector>
 #include <unordered_map>
@@ -12,6 +10,11 @@
 *  - Each shader program may have a vertex shader and a fragment shader.
 *  - Geometry and tesselation shaders may be added in the future.
 */
+
+// forward declarations
+namespace linalg {
+  class Mat4;
+}
 
 class Shader {
 public:

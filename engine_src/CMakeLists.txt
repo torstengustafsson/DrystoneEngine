@@ -33,6 +33,7 @@ endmacro()
 # Execute the macro
 GroupSources("core")
 GroupSources("components")
+GroupSources("datastructures")
 GroupSources("input")
 GroupSources("linalg")
 GroupSources("opengl")

@@ -1,12 +1,18 @@
 
 #include <stdint.h>
-#include "linalg/linalg.h"
+#include "linalg/Mat4.h"
 
 #define NUM_VERTICES 4
 
 /*
 * TODO: write description
 */
+
+// forward declarations
+namespace linalg {
+  class Vec3;
+  class Quat;
+}
 
 class Transform {
 public:

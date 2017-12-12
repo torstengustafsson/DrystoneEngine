@@ -1,4 +1,5 @@
 #include "GameEngine.h"
+#include "core/inc/Globals.h"
 #include "core/inc/Log.h"
 
 // initialize global variables

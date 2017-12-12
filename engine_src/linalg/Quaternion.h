@@ -1,6 +1,5 @@
 #pragma once
 
-#include "linalg/Vec4.h"
 #include <cmath>
 
 /*
@@ -12,6 +11,9 @@
 */
 
 namespace linalg {
+
+// forward declarations
+class Vec4;
 
 class Quat {
 public:

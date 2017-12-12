@@ -1,5 +1,5 @@
-#include "core/inc/Log.h"
 #include "linalg/Mat2.h"
+#include "core/inc/Log.h"
 
 #define str std::to_string
 

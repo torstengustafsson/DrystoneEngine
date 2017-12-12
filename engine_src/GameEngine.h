@@ -1,13 +1,12 @@
 #pragma once
 
-#include <memory>
-#include <chrono>
-#include "core/inc/Globals.h"
 #include "core/GameRenderer.h"
 #include "core/GameController.h"
 #include "core/Camera/Camera3D.h"
 #include "input/InputHandler.h"
-#include "world/GameObject.h"
+
+#include <memory>
+#include <chrono>
 
 #ifdef EMSCRIPTEN
 #include <emscripten.h>
@@ -16,6 +15,9 @@
 /*
 * TODO: write description
 */
+
+// forward declarations
+class GameObject;
 
 class GameEngine {
 public:

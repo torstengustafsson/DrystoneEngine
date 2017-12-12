@@ -1,7 +1,6 @@
 #pragma once
 
 #include <cmath>
-#include "linalg/Mat3.h"
 
 /*
 * Defines vectors in 2D, 3D and 4D.

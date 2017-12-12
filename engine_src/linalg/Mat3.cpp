@@ -1,5 +1,7 @@
-#include "core/inc/Log.h"
 #include "linalg/Mat3.h"
+#include "linalg/Vec3.h"
+#include "linalg/Quaternion.h"
+#include "core/inc/Log.h"
 
 #define str std::to_string
 

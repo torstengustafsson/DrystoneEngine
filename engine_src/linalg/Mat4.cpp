@@ -1,6 +1,9 @@
-#include "core/inc/Log.h"
 #include "linalg/Mat4.h"
 #include "linalg/Vec3.h"
+#include "linalg/Quaternion.h"
+#include "core/inc/Log.h"
+
+#define SIZE 4
 
 #define str std::to_string
 
@@ -57,6 +60,45 @@ Vec3 Mat4::getScale() const {
 Quat Mat4::getOrientation() const {
   // TODO
   return Quat(0,0,0,1);
+}
+
+Mat4& Mat4::operator*(const Mat4& rhs) const {
+
+  Mat4 res(0.0); // zero matrix
+
+  for (int row = 0; row < SIZE; row++) {
+    for (int col = 0; col < SIZE; col++) {
+      for (int i = 0; i < SIZE; i++) {
+        res.m[(row * SIZE) + col] += m[(row * SIZE) + i] * m[(col * SIZE) + i];
+      }
+    }
+  }
+
+  return res;
+
+  //float m11 = m[0] * rhs.m[0] + m[1] * rhs.m[4] + m[2] * rhs.m[8]  + m[3] * rhs.m[12];
+  //float m12 = m[0] * rhs.m[1] + m[1] * rhs.m[5] + m[2] * rhs.m[9]  + m[3] * rhs.m[13];
+  //float m13 = m[0] * rhs.m[2] + m[1] * rhs.m[6] + m[2] * rhs.m[10] + m[3] * rhs.m[14];
+  //float m14 = m[0] * rhs.m[3] + m[1] * rhs.m[7] + m[2] * rhs.m[11] + m[3] * rhs.m[15];
+
+  //float m21 = m[4] * rhs.m[0] + m[5] * rhs.m[4] + m[6] * rhs.m[8]  + m[7] * rhs.m[12];
+  //float m22 = m[4] * rhs.m[1] + m[5] * rhs.m[5] + m[6] * rhs.m[9]  + m[7] * rhs.m[13];
+  //float m23 = m[4] * rhs.m[2] + m[5] * rhs.m[6] + m[6] * rhs.m[10] + m[7] * rhs.m[14];
+  //float m24 = m[4] * rhs.m[3] + m[5] * rhs.m[7] + m[6] * rhs.m[11] + m[7] * rhs.m[15];
+
+  //float m31 = m[8] * rhs.m[0] + m[5] * rhs.m[4] + m[6] * rhs.m[8] + m[7] * rhs.m[12];
+  //float m32 = m[8] * rhs.m[1] + m[5] * rhs.m[5] + m[6] * rhs.m[9] + m[7] * rhs.m[13];
+  //float m33 = m[8] * rhs.m[2] + m[5] * rhs.m[6] + m[6] * rhs.m[10] + m[7] * rhs.m[14];
+  //float m34 = m[8] * rhs.m[3] + m[5] * rhs.m[7] + m[6] * rhs.m[11] + m[7] * rhs.m[15];
+}
+
+bool Mat4::operator==(const Mat4& rhs) {
+  for (int i = 0; i < 16; i++) {
+    if (m[i] != rhs.m[i]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 void Mat4::print() const {

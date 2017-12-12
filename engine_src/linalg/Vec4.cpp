@@ -1,5 +1,4 @@
 #include "linalg/Vec4.h"
-
 #include "linalg/Vec2.h"
 #include "linalg/Vec3.h"
 

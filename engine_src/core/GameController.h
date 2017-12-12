@@ -2,11 +2,13 @@
 
 #include <vector>
 #include <memory>
-#include "world/GameObject.h"
 
 /*
 * TODO: write description
 */
+
+// forward declarations
+class GameObject;
 
 class GameController {
 friend class InputHandler;

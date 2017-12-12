@@ -1,4 +1,5 @@
 #include "core/GameRenderer.h"
+#include "world/GameObject.h"
 #include "core/inc/Log.h"
 
 GameRenderer::~GameRenderer() {
@@ -114,7 +115,8 @@ void GameRenderer::renderFrame(std::vector<std::shared_ptr<GameObject>> gameObje
 }
 
 void GameRenderer::renderObject(std::shared_ptr<GameObject> o) {
-  o->render(gameCamera->getView(), gameCamera->getProjection());
+  const linalg::Mat4 worldOrigin; // identity matrix
+  o->render(worldOrigin, gameCamera->getView(), gameCamera->getProjection());
 }
 
 void GameRenderer::printOpenGlInfo() {

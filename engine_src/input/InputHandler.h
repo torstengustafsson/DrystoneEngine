@@ -1,10 +1,11 @@
 #pragma once
 
+#include "input/inc/InputCommand.h"
+
 #include <map>
 #include <memory>
 #include <vector>
 #include "SDL.h"
-#include "input/inc/InputCommand.h"
 
 /*
 * Each game uses an input handler to handle user input.
