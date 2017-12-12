@@ -1,6 +1,6 @@
 #pragma once
 
-#include "linalg/Vector.h"
+#include "linalg/Vec4.h"
 #include <cmath>
 
 /*

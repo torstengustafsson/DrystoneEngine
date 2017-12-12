@@ -1,4 +1,6 @@
 #include "linalg/Quaternion.h"
+#include "linalg/Vec3.h"
+
 
 namespace linalg {
 

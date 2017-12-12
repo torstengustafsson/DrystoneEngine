@@ -1,6 +1,6 @@
 #pragma once
 
-#include "linalg/Vector.h"
+#include "linalg/Vec3.h"
 #include "world/GameObject.h"
 #include "input/InputHandler.h"
 
