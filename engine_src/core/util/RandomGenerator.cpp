@@ -1,4 +1,4 @@
-#include "core/RandomGenerator.h"
+#include "core/util/RandomGenerator.h"
 
 unsigned long int Random::randIndex = 0;
 

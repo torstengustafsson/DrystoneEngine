@@ -1,6 +1,6 @@
 #include "world/GameObject.h"
 #include "linalg/Vec3.h"
-#include "components/geometries/inc/Mesh.h"
+#include "components/Mesh.h"
 
 GameObject::GameObject(std::shared_ptr<Mesh> _mesh)
   : mesh(_mesh) {
@@ -42,7 +42,7 @@ std::shared_ptr<Mesh> GameObject::getMesh() const {
 //}
 
 void GameObject::addChild(const GameObject& child) {
-  children.push_back(5);
+  children.push_back(child);
 }
 
 //void GameObject::removeChild(const std::shared_ptr<GameObject>& child) {

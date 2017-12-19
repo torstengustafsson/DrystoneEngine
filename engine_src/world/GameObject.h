@@ -7,7 +7,7 @@
 #include <memory>
 
 /*
-* The basic object all ingame objects are made up of. 
+* The basic object that all ingame objects are made up of. 
 * Based on the component pattern.
 * Each GameObject may have other GameObjects as its children.
 */
@@ -43,5 +43,5 @@ private:
   std::shared_ptr<Mesh> mesh;
   linalg::Mat4 transform;
 
-  std::vector<int> children;
+  std::vector<GameObject> children;
 };
