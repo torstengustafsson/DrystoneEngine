@@ -29,7 +29,7 @@ public:
 
   std::shared_ptr<InputHandler> inputHandler();
   
-  void addGameObject(std::shared_ptr<GameObject> o);
+  void addGameObject(const GameObject& o);
   
 private:
 

@@ -1,6 +1,8 @@
 #pragma once 
 
 #include "linalg/Vec3.h"
+#include "linalg/Mat4.h"
+
 #include <stdint.h>
 #include "GL/glew.h"
 
@@ -15,17 +17,14 @@
 *       currently hardcoded as a plane.
 */
 
-// forward declarations
-namespace linalg {
-  class Mat4;
-}
-
 class Mesh {
 public:
   Mesh();
   Mesh(float width, float height);
 
-  void render(const linalg::Mat4& M, const linalg::Mat4& V, const linalg::Mat4& P);
+  void render(const linalg::Mat4& V, const linalg::Mat4& P) const;
+
+  linalg::Mat4 transform;
 
 private:
   linalg::Vec3 positions[NUM_VERTICES];

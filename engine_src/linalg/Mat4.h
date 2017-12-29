@@ -25,9 +25,17 @@ public:
   void setScale(const Vec3& scale);
   void setOrientation(const Quat& orientation);
 
+  void translate(const Vec3& vec);
+
+  void rotX(const float& angle);
+  void rotY(const float& angle);
+  void rotZ(const float& angle);
+
   Vec3 getTranslation() const;
   Vec3 getScale() const;
   Quat getOrientation() const;
+
+  void multiply(const Mat4& other);
 
   Mat4& operator*(const Mat4& rhs) const;
   bool operator==(const Mat4& rhs);

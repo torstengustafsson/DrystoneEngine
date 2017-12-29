@@ -10,8 +10,10 @@
 
 namespace util {
 
+  typedef std::string Uuid;
+
 class UuidGenerator {
-  static std::string newUUID();
+  static Uuid newUUID();
 };
 
 } // namespace util

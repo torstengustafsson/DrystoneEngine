@@ -1,6 +1,11 @@
 #include "core/GameRenderer.h"
-#include "world/GameObject.h"
+#include "components/ComponentManager.h"
+#include "components/Mesh.h"
 #include "core/inc/Log.h"
+
+GameRenderer::GameRenderer() {
+  meshes = ComponentManager::getMeshArray();
+}
 
 GameRenderer::~GameRenderer() {
   close();
@@ -76,16 +81,13 @@ bool GameRenderer::init() {
 
 bool GameRenderer::setOpenGLAttributes()
 {
-  // Set our OpenGL version.
-  // SDL_GL_CONTEXT_CORE gives us only the newer version, deprecated functions are disabled
+  // Set OpenGL version.
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
-  // 3.2 is part of the modern versions of OpenGL, but most video cards whould be able to run it
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
 
-  // Turn on double buffering with a 24bit Z buffer.
-  // You may need to change this to 16 or 32 for your system
+  // Turn on double buffering with a 24 bit Z buffer.
+  // May need to be changed to 16 or 32 bits
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
   return true;
@@ -99,24 +101,22 @@ int GameRenderer::getHeight() {
 	return SCREEN_HEIGHT;
 }
 
-void GameRenderer::renderFrame(std::vector<std::shared_ptr<GameObject>> gameObjects) {
+void GameRenderer::renderFrame() {
   SCREEN_WIDTH = SDL_GetWindowSurface(gameWindow.get())->w;
   SCREEN_HEIGHT = SDL_GetWindowSurface(gameWindow.get())->h;
   glClear(GL_COLOR_BUFFER_BIT);
 
   // render objects to screen
-  for(auto o : gameObjects) {
-    renderObject(o);
+  for(int i = 0; i < ComponentManager::getNumObjects(); i++) {
+    // TODO: combined transformations (like rotation + translation) does not seem to work as expected
+    meshes[i].transform.rotZ(0.05);
+    //meshes[i].transform.translate(linalg::Vec3(0.0, 0.01, 0.0));
+    meshes[i].render(gameCamera->getView(), gameCamera->getProjection());
   }
 
   // update screen
   SDL_GL_SwapWindow(gameWindow.get());
 
-}
-
-void GameRenderer::renderObject(std::shared_ptr<GameObject> o) {
-  const linalg::Mat4 worldOrigin; // identity matrix
-  o->render(worldOrigin, gameCamera->getView(), gameCamera->getProjection());
 }
 
 void GameRenderer::printOpenGlInfo() {

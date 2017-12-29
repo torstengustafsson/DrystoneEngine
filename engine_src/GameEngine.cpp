@@ -62,7 +62,7 @@ void GameEngine::update() {
 // performs all game rendering
 void GameEngine::render() {
   if (!gameController_->isLoading()) {
-    gameRenderer_->renderFrame(gameController_->getObjects());
+    gameRenderer_->renderFrame();
   }
 }
 
@@ -96,7 +96,7 @@ void GameEngine::run() {
 }
 #endif
 
-void GameEngine::addGameObject(std::shared_ptr<GameObject> o) {
+void GameEngine::addGameObject(const GameObject& o) {
   gameController_->addGameObject(o);
 }
 

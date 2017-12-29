@@ -1,14 +1,13 @@
 #pragma once
 
+#include "world/GameObject.h"
+
 #include <vector>
 #include <memory>
 
 /*
 * TODO: write description
 */
-
-// forward declarations
-class GameObject;
 
 class GameController {
 friend class InputHandler;
@@ -19,13 +18,14 @@ public:
   bool isPaused();
   bool isLoading();
 
-  void addGameObject(std::shared_ptr<GameObject> o);
-  void removeGameObject(std::shared_ptr<GameObject> o);
+  void addGameObject(const GameObject& o);
+  void removeGameObject(const GameObject& o);
 
-  std::vector<std::shared_ptr<GameObject>> getObjects();
+  std::vector<GameObject> getObjects();
   
 private:
-  std::vector<std::shared_ptr<GameObject>> objectList;
+  // This object list should not be used for performance heavy tasks
+  std::vector<GameObject> objectList;
 
   bool gamePaused = false; // becomes true when menu is open etc.
   bool loading = false;	// true when game assets is loading to prevent screen tearing etc.

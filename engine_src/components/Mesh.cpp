@@ -20,7 +20,10 @@ Mesh::Mesh(float _width, float _height)
     } {
 }
 
-void Mesh::render(const linalg::Mat4& M, const linalg::Mat4& V, const linalg::Mat4& P) {
+void Mesh::render(const linalg::Mat4& V, const linalg::Mat4& P) const {
+
+  linalg::Mat4 M = transform;
+  
 
   // The positons of the position and color data within the VAO
   const uint32_t positionAttributeIndex = 0, colorAttributeIndex = 1;

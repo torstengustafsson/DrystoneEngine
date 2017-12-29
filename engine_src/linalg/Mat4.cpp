@@ -49,6 +49,32 @@ void Mat4::setOrientation(const Quat& orientation) {
   //TODO
 }
 
+void Mat4::translate(const Vec3& vec) {
+  setTranslation(getTranslation() + vec);
+}
+
+void Mat4::rotX(const float& angle) {
+  multiply(Mat4(1, 0,           0,          0,
+                0, cos(angle), -sin(angle), 0,
+                0, sin(angle),  cos(angle), 0,
+                0, 0,           0,          1));
+}
+
+void Mat4::rotY(const float& angle) {
+  multiply(Mat4(cos(angle), 0, sin(angle), 0,
+                0,          1, 0,          0,
+               -sin(angle), 0, cos(angle), 0,
+                0,          0, 0,          1));
+}
+
+void Mat4::rotZ(const float& angle) {
+  multiply(Mat4(cos(angle), -sin(angle), 0, 0,
+                sin(angle),  cos(angle), 0, 0,
+                0,           0,          1, 0,
+                0,           0,          0, 1));
+}
+
+
 Vec3 Mat4::getTranslation() const {
   return Vec3(m[3], m[7], m[11]);
 }
@@ -62,6 +88,10 @@ Quat Mat4::getOrientation() const {
   return Quat(0,0,0,1);
 }
 
+void Mat4::multiply(const Mat4& other) {
+  *this = other * (*this);
+}
+
 Mat4& Mat4::operator*(const Mat4& rhs) const {
 
   Mat4 res(0.0); // zero matrix
@@ -69,11 +99,10 @@ Mat4& Mat4::operator*(const Mat4& rhs) const {
   for (int row = 0; row < SIZE; row++) {
     for (int col = 0; col < SIZE; col++) {
       for (int i = 0; i < SIZE; i++) {
-        res.m[(row * SIZE) + col] += m[(row * SIZE) + i] * m[(col * SIZE) + i];
+        res.m[(row * SIZE) + col] += m[(row * SIZE) + i] * rhs.m[(i * SIZE) + col];
       }
     }
   }
-
   return res;
 
   //float m11 = m[0] * rhs.m[0] + m[1] * rhs.m[4] + m[2] * rhs.m[8]  + m[3] * rhs.m[12];

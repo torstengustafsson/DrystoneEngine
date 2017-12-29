@@ -16,11 +16,11 @@
 */
 
 // forward declarations
-class GameObject;
+class Mesh;
 
 class GameRenderer {
 public:
-  GameRenderer() = default;
+  GameRenderer();
   ~GameRenderer();
 	
   int getWidth();
@@ -29,8 +29,7 @@ public:
   bool init();
   void close();
 	
-  void renderFrame(std::vector<std::shared_ptr<GameObject>> v);
-  void renderObject(std::shared_ptr<GameObject> o);
+  void renderFrame();
 
   void printOpenGlInfo();
 
@@ -46,4 +45,6 @@ private:
   std::string programName = "SDL2_OpenGL";
   int SCREEN_WIDTH = 800;
   int SCREEN_HEIGHT = 600;
+
+  Mesh* meshes;
 };

@@ -1,6 +1,7 @@
 #pragma once 
 
 #include "components/Mesh.h"
+#include "components/Collider.h"
 
 /*
 * Singleton class.
@@ -11,15 +12,25 @@
 * instead of looping through pointers to data.
 */
 
+// forward declarations
+class GameObject;
+
 #define MAX_GAMEOBJECTS 1000
 
 class ComponentManager {
 public:
+  static GameObject addGameObject(const Mesh& mesh);
+  static void removeGameObject(const int& index);
 
-  static void addGameObject(Mesh& mesh);
+  static int getNumObjects();
 
   static Mesh* getMeshArray();
+  static Collider* getColliderArray();
 
 private:
+  // component arrays are always sorted with active components first
   static Mesh meshes[MAX_GAMEOBJECTS];
+  static Collider colliders[MAX_GAMEOBJECTS];
+
+  static int currentNumObjects;
 };
