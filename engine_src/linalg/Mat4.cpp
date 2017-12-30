@@ -33,6 +33,52 @@ Mat4::Mat4(float f)
        f, f, f, f } {
 }
 
+const Mat4 Mat4::MakeTranslation(const Vec3& pos) {
+  Mat4 m;
+  m.m[3]  = pos.x;
+  m.m[7]  = pos.y;
+  m.m[11] = pos.z;
+  return m;
+}
+
+const Mat4 Mat4::MakeScale(const Vec3& scale) {
+  Mat4 m;
+  m.m[0]  = scale.x;
+  m.m[5]  = scale.y;
+  m.m[10] = scale.z;
+  return m;
+}
+
+const Mat4 Mat4::MakeScale(const float& scale) {
+  return MakeScale(Vec3(scale, scale, scale));
+}
+
+const Mat4 Mat4::MakeRotX(const float& angle) {
+  return Mat4( 1, 0,           0,          0,
+               0, cos(angle), -sin(angle), 0,
+               0, sin(angle),  cos(angle), 0,
+               0, 0,           0,          1 );
+}
+
+const Mat4 Mat4::MakeRotY(const float& angle) {
+  return Mat4( cos(angle), 0, sin(angle), 0,
+               0,          1, 0,          0,
+              -sin(angle), 0, cos(angle), 0,
+               0,          0, 0,          1 );
+}
+
+const Mat4 Mat4::MakeRotZ(const float& angle) {
+  return Mat4( cos(angle), -sin(angle), 0, 0,
+               sin(angle),  cos(angle), 0, 0,
+               0,           0,          1, 0,
+               0,           0,          0, 1 );
+}
+
+const Mat4 Mat4::MakeOrientation(const Quat& orientation) {
+  // TODO
+  return Mat4(0.0);
+}
+
 void Mat4::setTranslation(const Vec3& pos) {
   m[3]  = pos.x;
   m[7]  = pos.y;
@@ -40,9 +86,18 @@ void Mat4::setTranslation(const Vec3& pos) {
 }
 
 void Mat4::setScale(const Vec3& scale) {
+  //multiply(Mat4(scale.x, 0, 0, 0,
+  //  0, scale.y, 0, 0,
+  //  0, 0, scale.z, 0,
+  //  0, 0, 0, 1));
+
   m[0]  = scale.x;
   m[5]  = scale.y;
   m[10] = scale.z;
+}
+
+void Mat4::setScale(const float& scale) {
+  setScale(Vec3(scale, scale, scale));
 }
 
 void Mat4::setOrientation(const Quat& orientation) {
@@ -92,7 +147,7 @@ void Mat4::multiply(const Mat4& other) {
   *this = other * (*this);
 }
 
-Mat4& Mat4::operator*(const Mat4& rhs) const {
+Mat4 Mat4::operator*(const Mat4& rhs) const {
 
   Mat4 res(0.0); // zero matrix
 
@@ -104,21 +159,6 @@ Mat4& Mat4::operator*(const Mat4& rhs) const {
     }
   }
   return res;
-
-  //float m11 = m[0] * rhs.m[0] + m[1] * rhs.m[4] + m[2] * rhs.m[8]  + m[3] * rhs.m[12];
-  //float m12 = m[0] * rhs.m[1] + m[1] * rhs.m[5] + m[2] * rhs.m[9]  + m[3] * rhs.m[13];
-  //float m13 = m[0] * rhs.m[2] + m[1] * rhs.m[6] + m[2] * rhs.m[10] + m[3] * rhs.m[14];
-  //float m14 = m[0] * rhs.m[3] + m[1] * rhs.m[7] + m[2] * rhs.m[11] + m[3] * rhs.m[15];
-
-  //float m21 = m[4] * rhs.m[0] + m[5] * rhs.m[4] + m[6] * rhs.m[8]  + m[7] * rhs.m[12];
-  //float m22 = m[4] * rhs.m[1] + m[5] * rhs.m[5] + m[6] * rhs.m[9]  + m[7] * rhs.m[13];
-  //float m23 = m[4] * rhs.m[2] + m[5] * rhs.m[6] + m[6] * rhs.m[10] + m[7] * rhs.m[14];
-  //float m24 = m[4] * rhs.m[3] + m[5] * rhs.m[7] + m[6] * rhs.m[11] + m[7] * rhs.m[15];
-
-  //float m31 = m[8] * rhs.m[0] + m[5] * rhs.m[4] + m[6] * rhs.m[8] + m[7] * rhs.m[12];
-  //float m32 = m[8] * rhs.m[1] + m[5] * rhs.m[5] + m[6] * rhs.m[9] + m[7] * rhs.m[13];
-  //float m33 = m[8] * rhs.m[2] + m[5] * rhs.m[6] + m[6] * rhs.m[10] + m[7] * rhs.m[14];
-  //float m34 = m[8] * rhs.m[3] + m[5] * rhs.m[7] + m[6] * rhs.m[11] + m[7] * rhs.m[15];
 }
 
 bool Mat4::operator==(const Mat4& rhs) {

@@ -21,8 +21,18 @@ public:
        float f13, float f14, float f15, float f16);
   Mat4(float f);
 
+  static const Mat4 MakeTranslation(const Vec3& pos);
+  static const Mat4 MakeScale(const Vec3& scale);
+  static const Mat4 MakeScale(const float& scale);
+  static const Mat4 MakeRotX(const float& angle);
+  static const Mat4 MakeRotY(const float& angle);
+  static const Mat4 MakeRotZ(const float& angle);
+  static const Mat4 MakeOrientation(const Quat& orientation);
+
+  // deprecated?
   void setTranslation(const Vec3& pos);
   void setScale(const Vec3& scale);
+  void setScale(const float& scale);
   void setOrientation(const Quat& orientation);
 
   void translate(const Vec3& vec);
@@ -37,7 +47,7 @@ public:
 
   void multiply(const Mat4& other);
 
-  Mat4& operator*(const Mat4& rhs) const;
+  Mat4 operator*(const Mat4& rhs) const;
   bool operator==(const Mat4& rhs);
 
   void print() const;

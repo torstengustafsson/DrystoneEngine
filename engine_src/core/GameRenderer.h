@@ -35,7 +35,7 @@ public:
 
 private:
   bool setOpenGLAttributes();
-
+  float testVal = 0.0;
   std::unique_ptr<SDL_Window, sdl_deleter> gameWindow;
   std::shared_ptr<Camera3D> gameCamera;
 

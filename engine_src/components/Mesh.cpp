@@ -7,7 +7,10 @@ Mesh::Mesh()
 }
 
 Mesh::Mesh(float _width, float _height)
-  : width(_width),
+  : position(0.0, 0.0, 0.0),
+    scale(1.0, 1.0, 1.0),
+    angle(0.0),
+    width(_width),
     height(_height),
     square{
       { -_width,  _height,  0.5 }, // triangle 1
@@ -22,8 +25,13 @@ Mesh::Mesh(float _width, float _height)
 
 void Mesh::render(const linalg::Mat4& V, const linalg::Mat4& P) const {
 
-  linalg::Mat4 M = transform;
-  
+  using namespace linalg;
+  Mat4 posM = Mat4::MakeTranslation(Vec3(position));  
+  Mat4 scaleM = Mat4::MakeScale(scale);
+  Mat4 rotM = Mat4::MakeRotZ(angle);
+
+  // model matrix (multiplication order is important)
+  Mat4 M = posM * scaleM * rotM;
 
   // The positons of the position and color data within the VAO
   const uint32_t positionAttributeIndex = 0, colorAttributeIndex = 1;

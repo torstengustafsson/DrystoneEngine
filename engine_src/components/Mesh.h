@@ -26,6 +26,10 @@ public:
 
   linalg::Mat4 transform;
 
+  float angle; // TODO: should be a quat or something, for general orientations
+  linalg::Vec3 scale;
+  linalg::Vec3 position;
+
 private:
   linalg::Vec3 positions[NUM_VERTICES];
   linalg::Vec3 normals[NUM_VERTICES];

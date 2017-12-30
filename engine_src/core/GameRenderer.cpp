@@ -108,9 +108,11 @@ void GameRenderer::renderFrame() {
 
   // render objects to screen
   for(int i = 0; i < ComponentManager::getNumObjects(); i++) {
-    // TODO: combined transformations (like rotation + translation) does not seem to work as expected
-    meshes[i].transform.rotZ(0.05);
-    //meshes[i].transform.translate(linalg::Vec3(0.0, 0.01, 0.0));
+    // TEMP: hardcode translation, scaling and rotation
+    meshes[i].position = linalg::Vec3(0.0, testVal, 0.0);
+    meshes[i].scale = linalg::Vec3(testVal);
+    meshes[i].angle = linalg::PI / 2.0 * testVal;
+    testVal += 0.01;
     meshes[i].render(gameCamera->getView(), gameCamera->getProjection());
   }
 
@@ -123,7 +125,7 @@ void GameRenderer::printOpenGlInfo() {
   std::string message = "\nOpenGL Info:\n";
   char* openGlVersion = (char*)glGetString(GL_VERSION);
   char* shaderVersion = (char*)glGetString(GL_SHADING_LANGUAGE_VERSION);
-//printf(openGlVersion);
+
   message += "  - OpenGL version: " + std::string(openGlVersion) + "\n";
   message += "  - GLSL version: " + std::string(shaderVersion) + "\n";
   log(message);
