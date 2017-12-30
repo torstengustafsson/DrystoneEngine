@@ -75,3 +75,35 @@ void Mesh::render(const linalg::Mat4& V, const linalg::Mat4& P) const {
 
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
+
+void Mesh::setScale(const linalg::Vec3& _scale) {
+  scale = _scale;
+}
+
+void Mesh::setScale(const float& _scale) {
+  scale = linalg::Vec3(_scale, _scale, _scale);
+}
+
+void Mesh::setPosition(const linalg::Vec3& _pos) {
+  position = _pos;
+}
+
+void Mesh::translate(const linalg::Vec3& _pos) {
+  position = position + _pos;
+}
+
+void Mesh::rotX(const float& _angle) {
+  angle = _angle;
+}
+
+linalg::Vec3 Mesh::getScale() {
+  return scale;
+}
+
+linalg::Vec3 Mesh::getPosition() {
+  return position;
+}
+
+float Mesh::getOrientation() {
+  return angle;
+}

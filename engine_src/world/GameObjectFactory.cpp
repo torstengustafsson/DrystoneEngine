@@ -5,5 +5,5 @@
 #include "linalg/Vec3.h"
 
 GameObject GameObjectFactory::createPlane(const float width, const float height) {
-  return ComponentManager::addGameObject(Mesh(width, height));
+  return GameObject(GO_PROTOTYPE, new Mesh(width, height));
 }

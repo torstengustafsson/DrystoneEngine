@@ -2,6 +2,8 @@
 #include "linalg/Vec3.h"
 #include "components/Mesh.h"
 #include "components/ComponentManager.h"
+#include "components/EventHandler.h"
+#include "core/inc/Log.h"
 
 GameObject::GameObject(const int& _index, Mesh* _mesh)
   : index(_index),
@@ -9,26 +11,52 @@ GameObject::GameObject(const int& _index, Mesh* _mesh)
 }
 
 GameObject::~GameObject() {
-  ComponentManager::removeGameObject(index);
+  if (index == GO_PROTOTYPE) {
+    delete mesh;
+  }
+
+  for (auto e : eventHandlers) {
+    e->destroy();
+  }
 }
 
-void GameObject::setTranslation(const linalg::Vec3& pos) {
-  transform->setTranslation(pos);
-}
-
-void GameObject::translate(const linalg::Vec3& vec) {
-  setTranslation(getPosition() + vec);
-}
-
-linalg::Vec3 GameObject::getPosition() const {
-  return transform->getTranslation();
-}
-
-const Mesh* GameObject::getMesh() const {
+Mesh* GameObject::getMesh() const {
   return mesh;
 }
 
-void GameObject::addChild(const GameObject& child) {
+void GameObject::setPosition(const linalg::Vec3& pos) {
+  mesh->setPosition(pos);
+}
+
+void GameObject::addEventHandler(std::shared_ptr<EventHandler> eventHandler) {
+  eventHandler->gameObject = std::make_shared<GameObject>(*this);
+  eventHandler->init();
+  eventHandlers.push_back(eventHandler);
+}
+
+const int GameObject::getIndex() const {
+  return index;
+}
+
+const std::vector<std::shared_ptr<EventHandler>>& GameObject::getEventHandlers() const {
+  return eventHandlers;
+}
+
+void GameObject::runEventHandlers() {
+  for (auto e : eventHandlers) {
+     e->update();
+  }
+}
+
+//void GameObject::addChild(const GameObject& child) {
   // TODO
   //children.push_back(child);
+//}
+
+bool GameObject::operator==(const GameObject& rhs) {
+  return index == rhs.getIndex();
+}
+
+GameObject& GameObject::operator=(const GameObject& rhs) {
+  return GameObject(rhs);
 }

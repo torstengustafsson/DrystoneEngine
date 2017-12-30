@@ -18,19 +18,34 @@ namespace linalg {
   class Vec3;
 }
 class Mesh;
+class EventHandler;
+
+// GameObject instances with index set to GO_PROTOTYPE will manage themselves. 
+// anything else is managed by ComponentManager.
+#define GO_PROTOTYPE -1
 
 class GameObject {
 public:
   GameObject(const int& _index, Mesh* _mesh = nullptr);
   ~GameObject();
 
-  void setTranslation(const linalg::Vec3& pos);
-  void translate(const linalg::Vec3& vec);
+  Mesh* getMesh() const;
 
-  linalg::Vec3 getPosition() const;
-  const Mesh* getMesh() const;
+  void setPosition(const linalg::Vec3& pos);
 
-  void addChild(const GameObject& child);
+  void addEventHandler(std::shared_ptr<EventHandler>);
+  
+  const int getIndex() const;
+  const std::vector<std::shared_ptr<EventHandler>>& getEventHandlers() const;
+
+  void runEventHandlers();
+
+  //void addChild(const GameObject& child);
+
+  friend class ComponentManager;
+
+  bool operator==(const GameObject& rhs);
+  GameObject& operator=(const GameObject& rhs);
 
 private:
   std::string name;
@@ -41,11 +56,12 @@ private:
 
   // references to components are stored here. The actual component objects are 
   // managed by the ComponentManager class.
-  // raw pointers used for performance-heavy tasks (main loop).
+  // EventHandlers are the exception, as they are managed directly by the GameObject class.
+  // raw pointers are used for performance-heavy tasks (main loop).
   Mesh* mesh;
 
-  // transform is shared with components
-  std::shared_ptr<linalg::Mat4> transform;
+  // TODO: event handlers are currently only accessed by pointers (bad performance) Fix if possible.
+  std::vector<std::shared_ptr<EventHandler>> eventHandlers;
 
   //std::vector<GameObject> children;
 };

@@ -108,11 +108,6 @@ void GameRenderer::renderFrame() {
 
   // render objects to screen
   for(int i = 0; i < ComponentManager::getNumObjects(); i++) {
-    // TEMP: hardcode translation, scaling and rotation
-    meshes[i].position = linalg::Vec3(0.0, testVal, 0.0);
-    meshes[i].scale = linalg::Vec3(testVal);
-    meshes[i].angle = linalg::PI / 2.0 * testVal;
-    testVal += 0.01;
     meshes[i].render(gameCamera->getView(), gameCamera->getProjection());
   }
 

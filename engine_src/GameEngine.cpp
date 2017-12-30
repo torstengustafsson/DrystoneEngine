@@ -96,8 +96,8 @@ void GameEngine::run() {
 }
 #endif
 
-void GameEngine::addGameObject(const GameObject& o) {
-  gameController_->addGameObject(o);
+void GameEngine::addGameObject(const GameObject& objectPrototype) {
+  gameController_->addGameObject(objectPrototype);
 }
 
 std::shared_ptr<InputHandler> GameEngine::inputHandler() {

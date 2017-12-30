@@ -4,6 +4,9 @@
 
 /*
 * Singleton class for creating standard game objects.
+* creates prototypes of game objects which, when activated by the game engine 
+* will turn into identical, activated game objects (prototype objects do not 
+* have index values set).
 */
 
 // forward declarations

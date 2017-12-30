@@ -6,11 +6,17 @@ Mesh ComponentManager::meshes[MAX_GAMEOBJECTS];
 Collider ComponentManager::colliders[MAX_GAMEOBJECTS];
 int ComponentManager::currentNumObjects = 0;
 
-GameObject ComponentManager::addGameObject(const Mesh& mesh) {
+GameObject ComponentManager::addGameObject(const GameObject& objectPrototype) {
   int index = currentNumObjects;
   currentNumObjects++;
-  meshes[index] = Mesh(mesh);
-  return GameObject(index, &meshes[index]);
+  meshes[index] = Mesh(*(objectPrototype.getMesh())); // recreate the mesh and store in mesh array
+  
+  // create and return the game object to be used by the game engine
+  GameObject* gameObject = new GameObject(index, &meshes[index]);  
+  for (auto e : objectPrototype.getEventHandlers()) {
+    gameObject->addEventHandler(e);
+  }
+  return *gameObject;
 }
 
 void ComponentManager::removeGameObject(const int& index) {
@@ -22,7 +28,7 @@ void ComponentManager::removeGameObject(const int& index) {
     currentNumObjects--;
   }
   else {
-    log_verbose("Error: Cannot remove game object (index higher than number of active instances)");
+    log_verbose("Error: Cannot remove game object with index " + std::to_string(index) + " (index higher than number of active instances)");
   }
 }
 

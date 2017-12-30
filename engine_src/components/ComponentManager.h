@@ -19,7 +19,7 @@ class GameObject;
 
 class ComponentManager {
 public:
-  static GameObject addGameObject(const Mesh& mesh);
+  static GameObject addGameObject(const GameObject& objectPrototype);
   static void removeGameObject(const int& index);
 
   static int getNumObjects();

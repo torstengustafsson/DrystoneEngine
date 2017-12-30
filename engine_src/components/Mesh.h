@@ -24,13 +24,22 @@ public:
 
   void render(const linalg::Mat4& V, const linalg::Mat4& P) const;
 
-  linalg::Mat4 transform;
+  void setScale(const linalg::Vec3& _scale);
+  void setScale(const float& _scale);
+  void setPosition(const linalg::Vec3& _pos);
+  void translate(const linalg::Vec3& _pos);
+  //void rotate(const float& angle, const linalg::Vec3& axis);
+  void rotX(const float& _angle);
 
-  float angle; // TODO: should be a quat or something, for general orientations
-  linalg::Vec3 scale;
-  linalg::Vec3 position;
+  linalg::Vec3 getScale();
+  linalg::Vec3 getPosition();
+  float getOrientation();
 
 private:
+  linalg::Vec3 scale;
+  linalg::Vec3 position;
+  float angle; // TODO: should be a quat or something, for general orientations
+
   linalg::Vec3 positions[NUM_VERTICES];
   linalg::Vec3 normals[NUM_VERTICES];
 
