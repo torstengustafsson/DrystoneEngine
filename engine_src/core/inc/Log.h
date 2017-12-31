@@ -26,5 +26,6 @@ struct Logger {
 } // namespace log
 
 
+#define to_str std::to_string
 #define log(message) logging::Logger::log_(message)
 #define log_verbose(message) logging::Logger::log_(message, __FILE__, __func__, __LINE__)

@@ -20,7 +20,7 @@ class Mesh;
 
 class GameRenderer {
 public:
-  GameRenderer();
+  GameRenderer(std::shared_ptr<Camera3D> camera);
   ~GameRenderer();
 	
   int getWidth();

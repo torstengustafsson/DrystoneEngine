@@ -1,6 +1,8 @@
 #include "components/Mesh.h"
+#include "linalg/Vec4.h"
 #include "opengl/shader/Shader.h"
 #include "core/inc/Globals.h"
+#include "core/inc/Log.h"
 
 Mesh::Mesh()
   : Mesh(1.0f, 1.0f) {
@@ -69,7 +71,8 @@ void Mesh::render(const linalg::Mat4& V, const linalg::Mat4& P) const {
   // Set up shader ( will be covered in the next part )
   // ===================
   shader.useProgram();
-  shader.setUniform("MVP", M /* *V*P */);
+
+  shader.setUniform("MVP", M * V * P);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 

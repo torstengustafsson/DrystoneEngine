@@ -3,7 +3,8 @@
 #include "components/Mesh.h"
 #include "core/inc/Log.h"
 
-GameRenderer::GameRenderer() {
+GameRenderer::GameRenderer(std::shared_ptr<Camera3D> camera) {
+  gameCamera = camera;
   meshes = ComponentManager::getMeshArray();
 }
 

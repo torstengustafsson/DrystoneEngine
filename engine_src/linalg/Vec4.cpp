@@ -1,6 +1,7 @@
 #include "linalg/Vec4.h"
 #include "linalg/Vec2.h"
 #include "linalg/Vec3.h"
+#include "core/inc/Log.h"
 
 namespace linalg {
 
@@ -55,6 +56,20 @@ Vec4 Vec4::getNormalized() const {
 
 float Vec4::length() const {
   return linalg::length(*this);
+}
+
+float& Vec4::operator[](std::size_t i) {
+  return i == 0 ? x : i == 1 ? y : i == 2 ? z : w;
+}
+
+const float& Vec4::operator[](std::size_t i) const {
+  return i == 0 ? x : i == 1 ? y : i == 2 ? z : w;
+}
+
+
+void Vec4::print() const {
+  std::string output = "{ " + to_str(x) + ", " + to_str(y) + ", " + to_str(z) + ", " + to_str(w) + " }\n";
+  log(output);
 }
 
 } // namespace linalg

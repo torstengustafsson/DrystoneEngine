@@ -1,11 +1,10 @@
 #include "linalg/Mat4.h"
 #include "linalg/Vec3.h"
+#include "linalg/Vec4.h"
 #include "linalg/Quaternion.h"
 #include "core/inc/Log.h"
 
 #define SIZE 4
-
-#define str std::to_string
 
 namespace linalg {
 
@@ -75,80 +74,74 @@ const Mat4 Mat4::MakeRotZ(const float& angle) {
 }
 
 const Mat4 Mat4::MakeOrientation(const Quat& orientation) {
-  // TODO
-  return Mat4(0.0);
+  // TODO: identity matrix for now
+  return Mat4();
 }
 
-void Mat4::setTranslation(const Vec3& pos) {
-  m[3]  = pos.x;
-  m[7]  = pos.y;
-  m[11] = pos.z;
-}
-
-void Mat4::setScale(const Vec3& scale) {
-  //multiply(Mat4(scale.x, 0, 0, 0,
-  //  0, scale.y, 0, 0,
-  //  0, 0, scale.z, 0,
-  //  0, 0, 0, 1));
-
-  m[0]  = scale.x;
-  m[5]  = scale.y;
-  m[10] = scale.z;
-}
-
-void Mat4::setScale(const float& scale) {
-  setScale(Vec3(scale, scale, scale));
-}
-
-void Mat4::setOrientation(const Quat& orientation) {
-  //TODO
-}
-
-void Mat4::translate(const Vec3& vec) {
-  setTranslation(getTranslation() + vec);
-}
-
-void Mat4::rotX(const float& angle) {
-  multiply(Mat4(1, 0,           0,          0,
-                0, cos(angle), -sin(angle), 0,
-                0, sin(angle),  cos(angle), 0,
-                0, 0,           0,          1));
-}
-
-void Mat4::rotY(const float& angle) {
-  multiply(Mat4(cos(angle), 0, sin(angle), 0,
-                0,          1, 0,          0,
-               -sin(angle), 0, cos(angle), 0,
-                0,          0, 0,          1));
-}
-
-void Mat4::rotZ(const float& angle) {
-  multiply(Mat4(cos(angle), -sin(angle), 0, 0,
-                sin(angle),  cos(angle), 0, 0,
-                0,           0,          1, 0,
-                0,           0,          0, 1));
-}
-
-
-Vec3 Mat4::getTranslation() const {
-  return Vec3(m[3], m[7], m[11]);
-}
-
-Vec3 Mat4::getScale() const {
-  return Vec3(m[0], m[5], m[10]);
-}
-
-Quat Mat4::getOrientation() const {
-  // TODO
-  return Quat(0,0,0,1);
-}
+//void Mat4::setTranslation(const Vec3& pos) {
+//  m[3]  = pos.x;
+//  m[7]  = pos.y;
+//  m[11] = pos.z;
+//}
+//
+//void Mat4::setScale(const Vec3& scale) {
+//  m[0]  = scale.x;
+//  m[5]  = scale.y;
+//  m[10] = scale.z;
+//}
+//
+//void Mat4::setScale(const float& scale) {
+//  setScale(Vec3(scale, scale, scale));
+//}
+//
+//void Mat4::setOrientation(const Quat& orientation) {
+//  //TODO
+//}
+//
+//void Mat4::translate(const Vec3& vec) {
+//  setTranslation(getTranslation() + vec);
+//}
+//
+//void Mat4::rotX(const float& angle) {
+//  multiply(Mat4(1, 0,           0,          0,
+//                0, cos(angle), -sin(angle), 0,
+//                0, sin(angle),  cos(angle), 0,
+//                0, 0,           0,          1));
+//}
+//
+//void Mat4::rotY(const float& angle) {
+//  multiply(Mat4(cos(angle), 0, sin(angle), 0,
+//                0,          1, 0,          0,
+//               -sin(angle), 0, cos(angle), 0,
+//                0,          0, 0,          1));
+//}
+//
+//void Mat4::rotZ(const float& angle) {
+//  multiply(Mat4(cos(angle), -sin(angle), 0, 0,
+//                sin(angle),  cos(angle), 0, 0,
+//                0,           0,          1, 0,
+//                0,           0,          0, 1));
+//}
+//
+//
+//Vec3 Mat4::getTranslation() const {
+//  return Vec3(m[3], m[7], m[11]);
+//}
+//
+//Vec3 Mat4::getScale() const {
+//  return Vec3(m[0], m[5], m[10]);
+//}
+//
+//Quat Mat4::getOrientation() const {
+//  // TODO
+//  return Quat(0,0,0,1);
+//}
 
 void Mat4::multiply(const Mat4& other) {
   *this = other * (*this);
 }
 
 Mat4 Mat4::operator*(const Mat4& rhs) const {
-
   Mat4 res(0.0); // zero matrix
 
   for (int row = 0; row < SIZE; row++) {
@@ -156,6 +149,17 @@ Mat4 Mat4::operator*(const Mat4& rhs) const {
       for (int i = 0; i < SIZE; i++) {
         res.m[(row * SIZE) + col] += m[(row * SIZE) + i] * rhs.m[(i * SIZE) + col];
       }
+    }
+  }
+  return res;
+}
+
+Vec4 Mat4::operator*(const Vec4& rhs) const {
+  Vec4 res(0.0); // zero vector
+
+  for (int row = 0; row < SIZE; row++) {
+    for (int col = 0; col < SIZE; col++) {
+        res[row] += m[(row * SIZE) + col] * rhs[row];
     }
   }
   return res;
@@ -171,10 +175,10 @@ bool Mat4::operator==(const Mat4& rhs) {
 }
 
 void Mat4::print() const {
-  std::string output = "{ " + str(m[0])  + ", " + str(m[1])  + ", " + str(m[2])  + ", " + str(m[3])  + ",\n" +
-                       "  " + str(m[4])  + ", " + str(m[5])  + ", " + str(m[6])  + ", " + str(m[7])  + ",\n" +
-                       "  " + str(m[8])  + ", " + str(m[9])  + ", " + str(m[10]) + ", " + str(m[11]) + ",\n" +
-                       "  " + str(m[12]) + ", " + str(m[13]) + ", " + str(m[14]) + ", " + str(m[15]) + " }\n";
+  std::string output = "{ " + to_str(m[0])  + ", " + to_str(m[1])  + ", " + to_str(m[2])  + ", " + to_str(m[3])  + ",\n" +
+                       "  " + to_str(m[4])  + ", " + to_str(m[5])  + ", " + to_str(m[6])  + ", " + to_str(m[7])  + ",\n" +
+                       "  " + to_str(m[8])  + ", " + to_str(m[9])  + ", " + to_str(m[10]) + ", " + to_str(m[11]) + ",\n" +
+                       "  " + to_str(m[12]) + ", " + to_str(m[13]) + ", " + to_str(m[14]) + ", " + to_str(m[15]) + " }\n";
   log(output);
 }
 

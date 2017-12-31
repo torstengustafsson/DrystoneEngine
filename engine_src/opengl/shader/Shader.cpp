@@ -114,11 +114,11 @@ bool Shader::linkShaders() {
 
 int Shader::createShaderObject(const std::string &fileName, GLenum shaderType) {
   // Read file as std::string 
-  std::string str = readFile(fileName.c_str());
+  std::string s = readFile(fileName.c_str());
 
   // c_str() gives us a const char*, but we need a non-const one
-  char* src = const_cast<char*>(str.c_str());
-  int32_t size = str.length();
+  char* src = const_cast<char*>(s.c_str());
+  int32_t size = s.length();
 
   // Create an empty vertex shader handle
   int shaderId = glCreateShader(shaderType);

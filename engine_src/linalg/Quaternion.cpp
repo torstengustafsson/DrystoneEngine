@@ -1,4 +1,5 @@
 #include "linalg/Quaternion.h"
+#include "linalg/Vec4.h"
 #include "linalg/Vec3.h"
 
 
@@ -12,9 +13,14 @@ Quat::Quat(float f)
   : Quat(f, f, f, f) {
 }
 
-//Quat::Quat(const Vec4& q)
-//  : Quat(q.x, q.y, q.z, q.w) {
-//}
+Quat::Quat(const Vec4& q)
+  : Quat(q.x, q.y, q.z, q.w) {
+}
+
+Quat::Quat()
+  : Quat(0.0, 0.0, 0.0, 1.0) {
+}
+
 
 Quat Quat::operator+(const Quat q) const {
   return Quat(x + q.x, y + q.y, z + q.z, w + q.w);
