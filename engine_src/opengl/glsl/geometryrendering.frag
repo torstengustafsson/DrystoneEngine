@@ -7,5 +7,5 @@ in vec4 color;
 
 void main(void) {
 
-    gl_FragColor = color; // hardcoded red color
+    gl_FragColor = color; // hardcoded color based on vertex position
 }

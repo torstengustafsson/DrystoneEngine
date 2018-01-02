@@ -159,7 +159,7 @@ Vec4 Mat4::operator*(const Vec4& rhs) const {
 
   for (int row = 0; row < SIZE; row++) {
     for (int col = 0; col < SIZE; col++) {
-        res[row] += m[(row * SIZE) + col] * rhs[row];
+        res[row] += m[(row * SIZE) + col] * rhs[col];
     }
   }
   return res;

@@ -59,10 +59,16 @@ float Vec4::length() const {
 }
 
 float& Vec4::operator[](std::size_t i) {
+  if (i < 0 || i >= 4) {
+    log_verbose("Error: index out of bounds");
+  }
   return i == 0 ? x : i == 1 ? y : i == 2 ? z : w;
 }
 
 const float& Vec4::operator[](std::size_t i) const {
+  if (i < 0 || i >= 4) {
+    log_verbose("Error: index out of bounds");
+  }
   return i == 0 ? x : i == 1 ? y : i == 2 ? z : w;
 }
 

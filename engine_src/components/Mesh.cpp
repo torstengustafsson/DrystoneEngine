@@ -15,22 +15,22 @@ Mesh::Mesh(float _width, float _height)
     width(_width),
     height(_height),
     square{
-      { -_width,  _height,  0.5 }, // triangle 1
-      {  _width,  _height,  0.5 },
-      {  _width, -_height,  0.5 },
+      { -_width,  _height,  0 }, // triangle 1
+      {  _width,  _height,  0 },
+      {  _width, -_height,  0 },
 
-      { -_width,  _height,  0.5 }, // triangle 2
-      {  _width, -_height,  0.5 },
-      { -_width, -_height,  0.5 }
+      { -_width,  _height,  0 }, // triangle 2
+      {  _width, -_height,  0 },
+      { -_width, -_height,  0 }
     } {
 }
 
 void Mesh::render(const linalg::Mat4& V, const linalg::Mat4& P) const {
 
   using namespace linalg;
-  Mat4 posM = Mat4::MakeTranslation(Vec3(position));  
+  Mat4 posM   = Mat4::MakeTranslation(Vec3(position));
   Mat4 scaleM = Mat4::MakeScale(scale);
-  Mat4 rotM = Mat4::MakeRotZ(angle);
+  Mat4 rotM   = Mat4::MakeRotZ(angle);
 
   // model matrix (multiplication order is important)
   Mat4 M = posM * scaleM * rotM;
@@ -41,7 +41,7 @@ void Mesh::render(const linalg::Mat4& V, const linalg::Mat4& P) const {
   // create buffer
   GLuint vbo[2], vao[1];
 
-  Shader shader(Globals::PATH + "engine_src/opengl/glsl/geometryrendering.vert", 
+  Shader shader(Globals::PATH + "engine_src/opengl/glsl/geometryrendering.vert",
                 Globals::PATH + "engine_src/opengl/glsl/geometryrendering.frag");
 
   // Generate and assign two Vertex Buffer Objects to our handle
@@ -71,8 +71,7 @@ void Mesh::render(const linalg::Mat4& V, const linalg::Mat4& P) const {
   // Set up shader ( will be covered in the next part )
   // ===================
   shader.useProgram();
-
-  shader.setUniform("MVP", M * V * P);
+  shader.setUniform("MVP", P * V * M);
 
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 

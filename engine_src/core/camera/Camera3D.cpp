@@ -4,7 +4,7 @@
 
 #include <cmath>
 
-Camera3D::Camera3D(float _fov, float _near, float _far, linalg::Vec2 _aspect)
+Camera3D::Camera3D(float _fov, float _near, float _far, linalg::Vec2& _aspect)
   : fov(_fov),
     near(_near),
     far(_far),

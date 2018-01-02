@@ -9,7 +9,7 @@
 
 class Camera3D {
 public:
-  Camera3D(float _fov, float _near, float _far, linalg::Vec2 _aspect);
+  Camera3D(float _fov, float _near, float _far, linalg::Vec2& _aspect);
   Camera3D(float _fov, float _near, float _far, int aspectX, int aspectY);
 
   void translate(linalg::Vec3 pos);

@@ -24,10 +24,10 @@ int main(int argc, char *argv[]) {
   plane2.addEventHandler(std::make_shared<PlaneHandler>(inputHandler, Preset::PRESET2));
 
   GameObject plane3 = GameObjectFactory::createPlane(0.1, 0.5);
-  plane3.setPosition(linalg::Vec3(0, 0.25, -1.1));
+  plane3.setPosition(linalg::Vec3(-0.75, 0.25, -2.0));
 
   GameObject plane4 = GameObjectFactory::createPlane(0.1, 0.5);
-  plane4.setPosition(linalg::Vec3(-0.75, 0.25, 1.0));
+  plane4.setPosition(linalg::Vec3(0.75, 0.25, -3.0));
 
   // run the game
   GameEngine theGame(inputHandler, fps);

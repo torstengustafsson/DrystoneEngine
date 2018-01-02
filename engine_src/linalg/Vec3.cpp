@@ -2,6 +2,7 @@
 #include "linalg/Vec2.h"
 #include "linalg/Vec4.h"
 #include "linalg/Mat3.h"
+#include "core/inc/Log.h"
 
 namespace linalg {
 
@@ -63,6 +64,26 @@ Vec3 Vec3::getNormalized() const {
 
 float Vec3::length() const {
   return linalg::length(*this);
+}
+
+float& Vec3::operator[](std::size_t i) {
+  if (i < 0 || i >= 3) {
+    log_verbose("Error: index out of bounds");
+  }
+  return i == 0 ? x : i == 1 ? y : z;
+}
+
+const float& Vec3::operator[](std::size_t i) const {
+  if (i < 0 || i >= 3) {
+    log_verbose("Error: index out of bounds");
+  }
+  return i == 0 ? x : i == 1 ? y : z;
+}
+
+
+void Vec3::print() const {
+  std::string output = "{ " + to_str(x) + ", " + to_str(y) + ", " + to_str(z) + " }\n";
+  log(output);
 }
 
 } // namespace linalg

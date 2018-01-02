@@ -33,16 +33,15 @@ void PlaneHandler::update() {
 
   switch (preset) {
   case Preset::PRESET1:
-    mesh->setPosition(linalg::Vec3(0.2 * sin(animationVal), 0.0, -2.5 + sin(animationVal)));
-log("z = " + to_str(mesh->getPosition().z));
-  //  mesh->setScale(0.5 * sin(animationVal) + 0.1);
+    mesh->setPosition(linalg::Vec3(0.2 * sin(animationVal), 0.0, -7.0 + 5.0 * sin(animationVal)));
+    mesh->setScale(0.5 + 0.1 * sin(animationVal));
     mesh->setScale(1.0);
-  //  mesh->rotX(3.0 * linalg::PI * sin(animationVal));
+    mesh->rotX(3.0 * linalg::PI * sin(animationVal));
     animationVal += 0.1;
     break;
   case Preset::PRESET2:
-    mesh->setPosition(linalg::Vec3(-0.6, 0.2 * cos(animationVal) - 0.25, -49.0));
-//    mesh->setScale(0.5 * cos(animationVal) + 0.1);
+    mesh->setPosition(linalg::Vec3(-0.2, 0.5 * 0.5 * cos(animationVal) - 0.25, -1.5 + cos(animationVal)));
+    mesh->setScale(0.5 + 0.1 * cos(animationVal));
     mesh->rotX(linalg::PI * cos(animationVal));
     animationVal += 0.1;
     break;

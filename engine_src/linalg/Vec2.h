@@ -32,6 +32,11 @@ public:
   Vec2 getNormalized() const; // returns a normalized vector based on this
   float length() const;
 
+  float& operator[](std::size_t i);
+  const float& operator[](std::size_t i) const;
+
+  void print() const;
+
   float x, y;
 };
 

@@ -1,6 +1,7 @@
 #include "linalg/Vec2.h"
 #include "linalg/Vec3.h"
 #include "linalg/Vec4.h"
+#include "core/inc/Log.h"
 
 namespace linalg {
 
@@ -59,6 +60,26 @@ Vec2 Vec2::getNormalized() const {
 
 float Vec2::length() const {
   return linalg::length(*this);
+}
+
+float& Vec2::operator[](std::size_t i) {
+  if(i < 0 || i >= 2) {
+    log_verbose("Error: index out of bounds");
+  }
+  return i == 0 ? x : y;
+}
+
+const float& Vec2::operator[](std::size_t i) const {
+  if (i < 0 || i >= 2) {
+    log_verbose("Error: index out of bounds");
+  }
+  return i == 0 ? x : y;
+}
+
+
+void Vec2::print() const {
+  std::string output = "{ " + to_str(x) + ", " + to_str(y) + " }\n";
+  log(output);
 }
 
 } // namespace linalg
