@@ -34,7 +34,8 @@ public:
   void printOpenGlInfo();
 
 private:
-  bool setOpenGLAttributes();
+  void setSDLAttributes();
+  void initOpenGL();
 
   std::unique_ptr<SDL_Window, sdl_deleter> gameWindow;
   std::shared_ptr<Camera3D> gameCamera;

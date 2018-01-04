@@ -48,20 +48,8 @@ bool GameRenderer::init() {
   mainContext = SDL_GL_CreateContext(gameWindow.get());
 
   printOpenGlInfo();
-
-  setOpenGLAttributes();
-
-  // syncronize buffer swap with the monitor's vertical refresh
-  SDL_GL_SetSwapInterval(1);
-
-  // init GLEW
-  glewExperimental = GL_TRUE;
-  glewInit();
-
-  // set and initialize window
-  glClearColor(0.0, 0.0, 0.0, 1.0);
-  glClear(GL_COLOR_BUFFER_BIT);
-  SDL_GL_SwapWindow(gameWindow.get());
+  setSDLAttributes();
+  initOpenGL();
 
   //initialize PNG loading
   int imgFlags = IMG_INIT_PNG;
@@ -80,8 +68,7 @@ bool GameRenderer::init() {
   return true;
 }
 
-bool GameRenderer::setOpenGLAttributes()
-{
+void GameRenderer::setSDLAttributes() {
   // Set OpenGL version.
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
   SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -91,7 +78,25 @@ bool GameRenderer::setOpenGLAttributes()
   // May need to be changed to 16 or 32 bits
   SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
-  return true;
+  // syncronize buffer swap with the monitor's vertical refresh
+  SDL_GL_SetSwapInterval(1);
+
+  SDL_GL_SwapWindow(gameWindow.get());
+}
+
+void GameRenderer::initOpenGL() {
+  // init GLEW
+  glewExperimental = GL_TRUE;
+  glewInit();
+
+  // Enable depth test
+  glEnable(GL_DEPTH_TEST);
+  // Accept fragment if it closer to the camera than the former one
+  glDepthFunc(GL_LESS);
+
+  // set and initialize window
+  glClearColor(0.0, 0.0, 0.0, 1.0);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 int GameRenderer::getWidth() {
@@ -105,7 +110,7 @@ int GameRenderer::getHeight() {
 void GameRenderer::renderFrame() {
   SCREEN_WIDTH = SDL_GetWindowSurface(gameWindow.get())->w;
   SCREEN_HEIGHT = SDL_GetWindowSurface(gameWindow.get())->h;
-  glClear(GL_COLOR_BUFFER_BIT);
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // render objects to screen
   for(int i = 0; i < ComponentManager::getNumObjects(); i++) {
