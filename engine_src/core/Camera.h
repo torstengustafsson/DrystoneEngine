@@ -7,10 +7,21 @@
 * to use the arrow keys. The input mapping may be rebound.
 */
 
-class Camera3D {
+class Camera {
 public:
-  Camera3D(float _fov, float _near, float _far, linalg::Vec2& _aspect);
-  Camera3D(float _fov, float _near, float _far, int aspectX, int aspectY);
+
+  enum class Projection {
+    PERSPECTIVE,
+    ORTHOGRAPHIC,
+  };
+
+  enum class Type {
+    PERSPECTIVE,
+    ORTHOGRAPHIC,
+  };
+
+  Camera(float _fov, float _near, float _far, linalg::Vec2& _aspect);
+  Camera(float _fov, float _near, float _far, int aspectX, int aspectY);
 
   void translate(linalg::Vec3 pos);
   void setPosition(linalg::Vec3 pos);

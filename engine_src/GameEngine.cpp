@@ -13,26 +13,21 @@ GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps
     FPS(fps) {
   log("Starting Game Engine...");
 
-  gameCamera_ = std::make_shared<Camera3D>(linalg::PI / 3.0, 0.1, 10000.0, 800, 600);
-  gameRenderer_ = std::unique_ptr<GameRenderer>(new GameRenderer(gameCamera_));
+  gameCamera = std::make_shared<Camera>(CameraType::CAM_FPS, ProjectionType::PERSPECTIVE);
+  gameRenderer = std::make_unique<GameRenderer>(gameCamera);
 
-  if (!gameRenderer_->init()) {
+  if (!gameRenderer->init()) {
     log("Failed to initialize game renderer!");
     Globals::quit = true;
   }
 
-  // create empty inputhandler if none was provided
-  if(!inputHandler_) {
-    inputHandler_ = std::unique_ptr<InputHandler>(new InputHandler());
-  }
-
-  gameController_ = std::unique_ptr<GameController>(new GameController());
+  gameController = std::unique_ptr<GameController>(new GameController());
 
   log("Game Engine Started!");
 }
 
 GameEngine::GameEngine(const int fps)
-  : GameEngine(std::make_shared<InputHandler>(), fps) {
+  : GameEngine(std::make_unique<InputHandler>(), fps) {
 }
 
 // perform one in-game frame
@@ -52,18 +47,18 @@ void GameEngine::handleInput() {
 // updates game state
 void GameEngine::update() {
   // handle game logic such as spawning new objects and events
-  gameController_->frame();
+  gameController->frame();
 
   // handle object movements and collisions
-  if (!gameController_->isPaused()) {
+  if (!gameController->isPaused()) {
     // handle physics
   }
 }
 
 // performs all game rendering
 void GameEngine::render() {
-  if (!gameController_->isLoading()) {
-    gameRenderer_->renderFrame();
+  if (!gameController->isLoading()) {
+    gameRenderer->renderFrame();
   }
 }
 
@@ -98,7 +93,7 @@ void GameEngine::run() {
 #endif
 
 void GameEngine::addGameObject(const GameObject& objectPrototype) {
-  gameController_->addGameObject(objectPrototype);
+  gameController->addGameObject(objectPrototype);
 }
 
 std::shared_ptr<InputHandler> GameEngine::inputHandler() {

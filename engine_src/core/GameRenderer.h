@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/inc/sdl_deleter.h"
-#include "core/Camera/Camera3D.h"
+#include "core/camera/Camera.h"
 
 #include "SDL.h"
 #include "SDL_image.h"
@@ -20,7 +20,7 @@ class Mesh;
 
 class GameRenderer {
 public:
-  GameRenderer(std::shared_ptr<Camera3D> camera);
+  GameRenderer(std::shared_ptr<Camera> camera);
   ~GameRenderer();
 	
   int getWidth();
@@ -38,7 +38,7 @@ private:
   void initOpenGL();
 
   std::unique_ptr<SDL_Window, sdl_deleter> gameWindow;
-  std::shared_ptr<Camera3D> gameCamera;
+  std::shared_ptr<Camera> gameCamera;
 
   // OpenGL context handle
   SDL_GLContext mainContext;

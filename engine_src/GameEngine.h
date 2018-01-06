@@ -2,7 +2,7 @@
 
 #include "core/GameRenderer.h"
 #include "core/GameController.h"
-#include "core/Camera/Camera3D.h"
+#include "core/camera/Camera.h"
 #include "input/InputHandler.h"
 
 #include <memory>
@@ -21,7 +21,7 @@ class GameObject;
 
 class GameEngine {
 public:
-  GameEngine(std::shared_ptr<InputHandler> inputHandler = nullptr, const int fps = 60);
+  GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps = 60);
   GameEngine(const int fps = 60);
 
   void frame();
@@ -50,11 +50,11 @@ private:
   std::shared_ptr<InputHandler> inputHandler_;
 
   // game renderer controls SDL window and renderer
-  std::shared_ptr<Camera3D> gameCamera_;
+  std::shared_ptr<Camera> gameCamera;
 
   // game controller handles game logic.
-  std::unique_ptr<GameController> gameController_;
+  std::unique_ptr<GameController> gameController;
 
   // game renderer controls SDL window and renderer
-  std::unique_ptr<GameRenderer> gameRenderer_;
+  std::unique_ptr<GameRenderer> gameRenderer;
 };

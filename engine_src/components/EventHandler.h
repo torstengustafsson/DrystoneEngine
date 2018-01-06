@@ -3,13 +3,13 @@
 #include <memory>
 
 /*
-* Each event handler implementation may override these methods:
+* Event handler implementations may override these methods:
 * init() - called at object creation.
 * update() - called every frame.
 * destroy() - called at object destruction.
 *
-* Event handlers may have access to input. In that case, setInputHandler
-* must be called before any addInputMapping calls are made.
+* Event handlers may have access to input. In that case, setInputHandler()
+* must be called before any addInputMapping() calls are made.
 */
 
 // forward declarations
