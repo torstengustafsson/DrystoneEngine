@@ -1,5 +1,6 @@
 #include "GameEngine.h"
 #include "core/inc/Globals.h"
+#include "components/camera/CameraFactory.h"
 #include "core/inc/Log.h"
 
 // initialize global variables
@@ -13,7 +14,7 @@ GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps
     FPS(fps) {
   log("Starting Game Engine...");
 
-  gameCamera = std::make_shared<Camera>(CameraType::CAM_FPS, ProjectionType::PERSPECTIVE);
+  gameCamera = CameraFactory::createFPSCamera(inputHandler_);
   gameRenderer = std::make_unique<GameRenderer>(gameCamera);
 
   if (!gameRenderer->init()) {

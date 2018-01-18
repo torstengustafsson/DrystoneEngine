@@ -2,7 +2,7 @@
 
 #include "core/GameRenderer.h"
 #include "core/GameController.h"
-#include "core/camera/Camera.h"
+#include "components/camera/Camera.h"
 #include "input/InputHandler.h"
 
 #include <memory>
@@ -50,7 +50,7 @@ private:
   std::shared_ptr<InputHandler> inputHandler_;
 
   // game renderer controls SDL window and renderer
-  std::shared_ptr<Camera> gameCamera;
+  std::shared_ptr<Camera> gameCamera; // TODO: camera should be component of gameobject instead
 
   // game controller handles game logic.
   std::unique_ptr<GameController> gameController;

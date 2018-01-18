@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/camera/CameraHandler.h"
+#include "components/camera/Camera.h"
 
 /*
 * Factory for creating specific cameras.
@@ -10,16 +10,9 @@
 * 2D camera         - 2D movement in x- and y dimensions.
 */
 
-enum class CameraType {
-  CAM_FPS,
-  CAM_QUAT,
-  CAM_2D
-};
-
 class CameraFactory {
 public:
-
-  CameraHandler createFPSCamera(std::shared_ptr<InputHandler> inputHandler);
-  CameraHandler createQuatCamera(std::shared_ptr<InputHandler> inputHandler);
-  CameraHandler create2DCamera(std::shared_ptr<InputHandler> inputHandler);
+  static std::shared_ptr<Camera> createFPSCamera(std::shared_ptr<InputHandler> inputHandler);
+  static std::shared_ptr<Camera> createQuatCamera(std::shared_ptr<InputHandler> inputHandler);
+  static std::shared_ptr<Camera> create2DCamera(std::shared_ptr<InputHandler> inputHandler);
 };

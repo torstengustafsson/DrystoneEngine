@@ -1,6 +1,6 @@
 #pragma once
 
-#include "core/camera/CameraFactory.h"
+#include "components/camera/CameraHandler.h"
 
 #include <linalg/linalg.h>
 
@@ -12,6 +12,12 @@
 enum class ProjectionType {
   PERSPECTIVE,
   ORTHOGRAPHIC,
+};
+
+enum class CameraType {
+	CAM_FPS,
+	CAM_QUAT,
+	CAM_2D
 };
 
 class Camera {

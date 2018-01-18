@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/inc/sdl_deleter.h"
-#include "core/camera/Camera.h"
+#include "components/camera/Camera.h"
 
 #include "SDL.h"
 #include "SDL_image.h"
