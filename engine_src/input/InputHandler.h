@@ -5,7 +5,6 @@
 #include <map>
 #include <memory>
 #include <vector>
-#include "SDL.h"
 
 /*
 * Each game uses an input handler to handle user input.
@@ -28,8 +27,12 @@ public:
   // InputCommand is an interface (abstract class), and this is C++
   //void addInputMapping(const int key, InputCommand& command);
 
+  void setMouseMotionEvent(std::shared_ptr<MouseMotionEvent> _mouseEvent);
+
   void handleInput();
 
 private:
   std::map<int, std::shared_ptr<InputCommand>> inputMappings; // game input mappings to the actual commands
+  std::shared_ptr<MouseMotionEvent> mouseMotionEvent; // may be changed at runtime
+  std::shared_ptr<MouseClickEvent> mouseClickEvent; // may be changed at runtime
 };

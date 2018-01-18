@@ -9,6 +9,7 @@ std::shared_ptr<Camera> CameraFactory::createFPSCamera(std::shared_ptr<InputHand
   handler.setKeyBinding(CameraInput::MOVE_BACKWARD, { SDLK_s, SDLK_DOWN });
   handler.setKeyBinding(CameraInput::MOVE_LEFT, { SDLK_a, SDLK_LEFT });
   handler.setKeyBinding(CameraInput::MOVE_RIGHT, { SDLK_d, SDLK_RIGHT });
+  handler.setMouseMotionEvent();
   return camera;
 }
 

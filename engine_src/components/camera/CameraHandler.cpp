@@ -10,12 +10,16 @@ CameraHandler::CameraHandler(std::shared_ptr<Camera> _camera, std::shared_ptr<In
 }
 
 void CameraHandler::setKeyBinding(const CameraInput& camInput, const int& key) {
-  commands.push_back(std::make_shared<CameraCommand>(camera, camInput));
-  inputHandler->addInputMapping(key, commands.back());
+  inputHandler->addInputMapping(key, std::make_shared<CameraKeyCommand>(camera, camInput));
 }
 
 void CameraHandler::setKeyBinding(const CameraInput& camInput, const std::initializer_list<int> keys) {
 	for (auto it = keys.begin(); it != keys.end(); ++it) {
 		setKeyBinding(camInput, *it);
 	}
+}
+
+void CameraHandler::setMouseMotionEvent() {
+  auto mouseEvent = std::make_shared<CameraMouseCommand>(camera);
+  inputHandler->setMouseMotionEvent(mouseEvent);
 }

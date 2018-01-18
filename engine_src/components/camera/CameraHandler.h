@@ -20,9 +20,9 @@ public:
 
   void setKeyBinding(const CameraInput& camInput, const int& key);
   void setKeyBinding(const CameraInput& camInput, const std::initializer_list<int> keys);
+  void setMouseMotionEvent(); // TODO: parameters?
 
 private:
-  std::vector<std::shared_ptr<CameraCommand>> commands;
   std::shared_ptr<Camera> camera;
   std::shared_ptr<InputHandler> inputHandler;
 };

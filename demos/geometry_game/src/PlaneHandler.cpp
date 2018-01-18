@@ -2,7 +2,6 @@
 #include "components/Mesh.h"
 #include "linalg/linalg.h"
 #include "input.h"
-
 #include "core/inc/Log.h"
 
 #include <string>

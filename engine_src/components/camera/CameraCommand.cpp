@@ -4,7 +4,7 @@
 #include "linalg/Vec3.h"
 #include "core/inc/Log.h"
 
-CameraCommand::CameraCommand(std::shared_ptr<Camera> _camera, const CameraInput commandType)
+CameraKeyCommand::CameraKeyCommand(std::shared_ptr<Camera> _camera, const CameraInput commandType)
   : camera(_camera) {
 
 	switch (commandType) {
@@ -34,6 +34,14 @@ CameraCommand::CameraCommand(std::shared_ptr<Camera> _camera, const CameraInput 
 
 }
 
-void CameraCommand::execute() {
+void CameraKeyCommand::execute() {
   command(camera);
+}
+
+CameraMouseCommand::CameraMouseCommand(std::shared_ptr<Camera> _camera)
+  : camera(_camera) {
+}
+
+void CameraMouseCommand::execute(const int mouseX, const int mouseY) {
+  log("mouse currently at: (" + to_str(mouseX) + ", " + to_str(mouseY) + ")");
 }

@@ -22,9 +22,9 @@ enum class CameraInput {
 // forward declarations
 class Camera;
 
-class CameraCommand : public InputCommand {
+class CameraKeyCommand : public InputCommand {
 public:
-	CameraCommand(std::shared_ptr<Camera> _camera, const CameraInput commandType);
+	CameraKeyCommand(std::shared_ptr<Camera> _camera, const CameraInput commandType);
 	void execute() override;
 
 private:
@@ -32,3 +32,12 @@ private:
 	std::function<void(std::shared_ptr<Camera>)> command;
 };
 
+class CameraMouseCommand : public MouseMotionEvent {
+public:
+  CameraMouseCommand(std::shared_ptr<Camera> _camera);
+  void execute(const int mouseX, const int mouseY) override;
+
+private:
+  std::shared_ptr<Camera> camera;
+  std::function<void(std::shared_ptr<Camera>)> command;
+};

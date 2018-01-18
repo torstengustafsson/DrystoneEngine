@@ -7,6 +7,9 @@
 /*
 * Camera for 3D movement. Default initializes its input mapping 
 * to use the arrow keys. The input mapping may be rebound.
+* Note: All camera types will automatically bind WASD and arrow keys.
+*       as well as mouse motion handling.
+*       These can be unbound/rebound if necessary.
 */
 
 enum class ProjectionType {
