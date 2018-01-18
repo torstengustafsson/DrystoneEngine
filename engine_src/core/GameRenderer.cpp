@@ -15,18 +15,11 @@ GameRenderer::~GameRenderer() {
 void GameRenderer::close() {
   //Quit SDL subsystems
   SDL_GL_DeleteContext(mainContext);
-  IMG_Quit();
   SDL_Quit();
 }
 
 bool GameRenderer::init() {
   log("Initializing Game Renderer...");
-
-  // initialize SDL
-  if( SDL_Init( SDL_INIT_VIDEO ) < 0 ) {
-    log("SDL could not initialize! SDL_Error: " + std::string(SDL_GetError()));
-    return false;
-  }
 
   // create window
   gameWindow = std::unique_ptr<SDL_Window, sdl_deleter>(
@@ -51,18 +44,19 @@ bool GameRenderer::init() {
   setSDLAttributes();
   initOpenGL();
 
-  //initialize PNG loading
-  int imgFlags = IMG_INIT_PNG;
-  if( !( IMG_Init( imgFlags ) & imgFlags ) ) {
-    log("SDL_image could not initialize! SDL_image Error: " + std::string(IMG_GetError()));
-    return false;
-  }
+  // TODO: use SDL version, or other more OpenGL friendly variant?
+  ////initialize PNG loading
+  //int imgFlags = IMG_INIT_PNG;
+  //if( !( IMG_Init( imgFlags ) & imgFlags ) ) {
+  //  log("SDL_image could not initialize! SDL_image Error: " + std::string(IMG_GetError()));
+  //  return false;
+  //}
 
-  // initialize SDL_ttf
-  if( TTF_Init() == -1 ) {
-    log("SDL_ttf could not initialize! SDL_ttf Error: " + std::string(TTF_GetError()));
-    return false;
-  }
+  //// initialize SDL_ttf
+  //if( TTF_Init() == -1 ) {
+  //  log("SDL_ttf could not initialize! SDL_ttf Error: " + std::string(TTF_GetError()));
+  //  return false;
+  //}
 
   log("Game Renderer Initialized!");
   return true;

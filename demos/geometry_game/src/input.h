@@ -10,3 +10,7 @@ public:
 private:
   PlaneHandler* plane;
 };
+
+class ExitCommand : public InputCommand {
+  void execute() override;
+};

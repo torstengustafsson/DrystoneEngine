@@ -43,6 +43,7 @@ private:
   linalg::Vec3 positions[NUM_VERTICES];
   linalg::Vec3 normals[NUM_VERTICES];
 
+  // temp
   GLfloat square[POINTS][FLOATSPERPOINT];
 
   float width, height;

@@ -2,6 +2,7 @@
 #include "world/GameObjectFactory.h"
 #include "core/inc/Log.h"
 #include "PlaneHandler.h"
+#include "input.h"
 
 #include <iostream>
 #include <memory>
@@ -31,6 +32,8 @@ int main(int argc, char *argv[]) {
 
   // run the game
   GameEngine theGame(inputHandler, fps);
+  inputHandler->addInputMapping(SDLK_ESCAPE, std::make_shared<ExitCommand>());
+
   theGame.addGameObject(plane1);
   theGame.addGameObject(plane2);
   theGame.addGameObject(plane3);

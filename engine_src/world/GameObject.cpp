@@ -11,10 +11,6 @@ GameObject::GameObject(const int& _index, Mesh* _mesh)
 }
 
 GameObject::~GameObject() {
-  if (index == GO_PROTOTYPE) {
-    delete mesh;
-  }
-
   for (auto e : eventHandlers) {
     e->destroy();
   }

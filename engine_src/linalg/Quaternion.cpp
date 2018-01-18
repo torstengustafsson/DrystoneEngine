@@ -39,7 +39,7 @@ Quat Quat::operator*(const Quat q) const {
 }
 
 Quat Quat::operator/(const Quat q) const {
-  return (*this) * q.inv();
+  //return (*this) * q.inv();
   Vec3 v1(y, z, w);
   Vec3 v2(q.y, q.z, q.w);
   Vec3 res = -1 * v1 ^ v2 - (x * v2) + q.x * v1;

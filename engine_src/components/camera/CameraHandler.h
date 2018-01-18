@@ -19,7 +19,7 @@ public:
   CameraHandler(std::shared_ptr<Camera> _Camera, std::shared_ptr<InputHandler> _inputHandler);
 
   void setKeyBinding(const CameraInput& camInput, const int& key);
-  void setKeyBinding(const CameraInput& camInput, const std::initializer_list<int>& keys);
+  void setKeyBinding(const CameraInput& camInput, const std::initializer_list<int> keys);
 
 private:
   std::vector<std::shared_ptr<CameraCommand>> commands;

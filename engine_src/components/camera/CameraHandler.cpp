@@ -14,7 +14,7 @@ void CameraHandler::setKeyBinding(const CameraInput& camInput, const int& key) {
   inputHandler->addInputMapping(key, commands.back());
 }
 
-void CameraHandler::setKeyBinding(const CameraInput& camInput, const std::initializer_list<int>& keys) {
+void CameraHandler::setKeyBinding(const CameraInput& camInput, const std::initializer_list<int> keys) {
 	for (auto it = keys.begin(); it != keys.end(); ++it) {
 		setKeyBinding(camInput, *it);
 	}

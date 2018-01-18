@@ -1,6 +1,6 @@
 #include "input.h"
+#include "core/inc/Globals.h"
 #include "GL/glew.h"
-#include "input/inc/InputCommand.h"
 #include "core/inc/Log.h"
 
 ActivateCommand::ActivateCommand(PlaneHandler* planeToActivate)
@@ -9,4 +9,8 @@ ActivateCommand::ActivateCommand(PlaneHandler* planeToActivate)
 
 void ActivateCommand::execute() {
   plane->active = !plane->active;
+}
+
+void ExitCommand::execute() {
+  Globals::quit = true;
 }

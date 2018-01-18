@@ -28,7 +28,7 @@ void ComponentManager::removeGameObject(const int& index) {
     currentNumObjects--;
   }
   else {
-    log_verbose("Error: Cannot remove game object with index " + std::to_string(index) + " (index higher than number of active instances)");
+    log_verbose("Error: Cannot remove game object with index " + to_str(index) + " (index higher than number of active instances)");
   }
 }
 

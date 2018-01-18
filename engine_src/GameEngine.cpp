@@ -18,7 +18,7 @@ GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps
   gameRenderer = std::make_unique<GameRenderer>(gameCamera);
 
   if (!gameRenderer->init()) {
-    log("Failed to initialize game renderer!");
+    log_verbose("Failed to initialize game renderer!");
     Globals::quit = true;
   }
 
