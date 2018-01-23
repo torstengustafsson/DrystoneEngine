@@ -1,5 +1,6 @@
 
 #include "components/camera/Camera.h"
+#include "core/GameRenderer.h"
 #include "core/inc/Log.h"
 
 #include <cmath>
@@ -7,6 +8,7 @@
 Camera::Camera(CameraType camType, ProjectionType projType) {
   updateProjection(linalg::PI / 3.0, 0.1, 10000.0, 800, 600);
 }
+
 
 void Camera::translate(linalg::Vec3 pos) {
   setPosition(position + pos);
@@ -53,4 +55,8 @@ void Camera::updateProjection(float fov, float near, float far, int aspectX, int
                             0,      scaleY, 0,    0,
                             0,      0,      mapZ, mapW,
                             0,      0,     -1,    0);
+}
+
+bool Camera::operator==(const Camera& rhs) {
+  return id == rhs.id;
 }

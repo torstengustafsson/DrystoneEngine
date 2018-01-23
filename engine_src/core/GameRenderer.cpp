@@ -3,13 +3,16 @@
 #include "components/Mesh.h"
 #include "core/inc/Log.h"
 
-GameRenderer::GameRenderer(std::shared_ptr<Camera> camera) {
-  gameCamera = camera;
+GameRenderer::GameRenderer() {
   meshes = ComponentManager::getMeshArray();
 }
 
 GameRenderer::~GameRenderer() {
   close();
+}
+
+void GameRenderer::setActiveCamera(const Camera* camera) {
+  activeCamera = camera;
 }
 
 void GameRenderer::close() {
@@ -102,13 +105,18 @@ int GameRenderer::getHeight() {
 }
 
 void GameRenderer::renderFrame() {
+
+  if (activeCamera == nullptr) {
+    return;
+  }
+
   SCREEN_WIDTH = SDL_GetWindowSurface(gameWindow.get())->w;
   SCREEN_HEIGHT = SDL_GetWindowSurface(gameWindow.get())->h;
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // render objects to screen
   for(int i = 0; i < ComponentManager::getNumObjects(); i++) {
-    meshes[i].render(gameCamera->getView(), gameCamera->getProjection());
+    meshes[i].render(activeCamera->getView(), activeCamera->getProjection());
   }
 
   // update screen
@@ -124,4 +132,12 @@ void GameRenderer::printOpenGlInfo() {
   message += "  - OpenGL version: " + std::string(openGlVersion) + "\n";
   message += "  - GLSL version: " + std::string(shaderVersion) + "\n";
   log(message);
+}
+
+void GameRenderer::hideMouseCursor() {
+  // TODO
+}
+
+void GameRenderer::setMousePos(const int x, const int y) {
+ SDL_WarpMouseInWindow(gameWindow.get(), x, y);
 }

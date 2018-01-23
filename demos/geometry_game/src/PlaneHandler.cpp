@@ -8,7 +8,7 @@
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
 
-PlaneHandler::PlaneHandler(std::shared_ptr<InputHandler> _inputHandler, Preset _preset) 
+PlaneHandler::PlaneHandler(InputHandler& _inputHandler, Preset _preset) 
   : active(true),
     animationVal(0.0),
     preset(_preset) {

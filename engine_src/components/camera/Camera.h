@@ -1,8 +1,9 @@
 #pragma once
 
 #include "components/camera/CameraHandler.h"
-
-#include <linalg/linalg.h>
+#include "linalg/linalg.h"
+#include "core/util/UuidGenerator.h"
+#include <memory>
 
 /*
 * Camera for 3D movement. Default initializes its input mapping 
@@ -11,6 +12,9 @@
 *       as well as mouse motion handling.
 *       These can be unbound/rebound if necessary.
 */
+
+// forward declarations
+class GameRenderer;
 
 enum class ProjectionType {
   PERSPECTIVE,
@@ -41,7 +45,11 @@ public:
   // TODO: handle camera shakes using this method
   // void shake(float magnitude, float time, float fadeTime);
 
+  bool operator==(const Camera& rhs);
+
 private:
+  util::Uuid id = util::UuidGenerator::newUUID();
+
   linalg::Mat4 projection;
 
   // TODO: handle camera shakes using this matrix

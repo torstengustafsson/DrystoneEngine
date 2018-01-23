@@ -1,7 +1,5 @@
 #pragma once
 
-#include <string>
-
 /*
 * A simple Universally Unique Identifier generator. 
 * (Or Globally Unique Identifier (GUID), which means the same thing)
@@ -10,10 +8,11 @@
 
 namespace util {
 
-  typedef std::string Uuid;
+  typedef unsigned long long Uuid;
 
-class UuidGenerator {
+struct UuidGenerator {
   static Uuid newUUID();
+  static Uuid next;
 };
 
 } // namespace util

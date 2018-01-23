@@ -1,6 +1,7 @@
 #pragma once
 
 #include "input/inc/InputCommand.h"
+#include "linalg/Vec2.h"
 #include <functional>
 #include <memory>
 
@@ -40,4 +41,5 @@ public:
 private:
   std::shared_ptr<Camera> camera;
   std::function<void(std::shared_ptr<Camera>)> command;
+  linalg::Vec2 lastPos;
 };

@@ -39,7 +39,8 @@ void CameraKeyCommand::execute() {
 }
 
 CameraMouseCommand::CameraMouseCommand(std::shared_ptr<Camera> _camera)
-  : camera(_camera) {
+  : camera(_camera),
+    lastPos(0, 0) {
 }
 
 void CameraMouseCommand::execute(const int mouseX, const int mouseY) {

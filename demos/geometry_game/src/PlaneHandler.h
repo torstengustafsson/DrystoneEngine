@@ -13,7 +13,7 @@ enum class Preset {
 
 class PlaneHandler : public EventHandler {
 public:
-  PlaneHandler(std::shared_ptr<InputHandler> _inputHandler, Preset _preset);
+  PlaneHandler(InputHandler& _inputHandler, Preset _preset);
 
   void update() override;
 

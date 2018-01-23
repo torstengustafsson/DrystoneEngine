@@ -20,9 +20,11 @@ class Mesh;
 
 class GameRenderer {
 public:
-  GameRenderer(std::shared_ptr<Camera> camera);
+  GameRenderer();
   ~GameRenderer();
 	
+  void setActiveCamera(const Camera* camera);
+
   int getWidth();
   int getHeight();
 	
@@ -33,12 +35,15 @@ public:
 
   void printOpenGlInfo();
 
+  void hideMouseCursor();
+  void setMousePos(const int x, const int y);
+
 private:
   void setSDLAttributes();
   void initOpenGL();
 
   std::unique_ptr<SDL_Window, sdl_deleter> gameWindow;
-  std::shared_ptr<Camera> gameCamera;
+  const Camera* activeCamera;
 
   // OpenGL context handle
   SDL_GLContext mainContext;

@@ -9,26 +9,23 @@ bool Globals::quit = false;
 const std::string Globals::PATH = "../../../";
 
 
-GameEngine::GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps)
-  : inputHandler_(inputHandler),
-    FPS(fps) {
+GameEngine::GameEngine(InputHandler& _inputHandler, const int fps)
+  : GameEngine(fps) {
+  inputHandler = _inputHandler;
+}
+
+GameEngine::GameEngine(const int fps)
+ : FPS(fps) {
   log("Starting Game Engine...");
 
-  gameCamera = CameraFactory::createFPSCamera(inputHandler_);
-  gameRenderer = std::make_unique<GameRenderer>(gameCamera);
+  addCamera(CameraType::CAM_FPS, true, true);
 
-  if (!gameRenderer->init()) {
+  if (!gameRenderer.init()) {
     log_verbose("Failed to initialize game renderer!");
     Globals::quit = true;
   }
 
-  gameController = std::unique_ptr<GameController>(new GameController());
-
   log("Game Engine Started!");
-}
-
-GameEngine::GameEngine(const int fps)
-  : GameEngine(std::make_unique<InputHandler>(), fps) {
 }
 
 // perform one in-game frame
@@ -42,24 +39,24 @@ void GameEngine::frame() {
 
 // handles user input
 void GameEngine::handleInput() {
-  inputHandler_->handleInput();
+  inputHandler.handleInput();
 }
 
 // updates game state
 void GameEngine::update() {
   // handle game logic such as spawning new objects and events
-  gameController->frame();
+  gameController.frame();
 
   // handle object movements and collisions
-  if (!gameController->isPaused()) {
+  if (!gameController.isPaused()) {
     // handle physics
   }
 }
 
 // performs all game rendering
 void GameEngine::render() {
-  if (!gameController->isLoading()) {
-    gameRenderer->renderFrame();
+  if (!gameController.isLoading()) {
+    gameRenderer.renderFrame();
   }
 }
 
@@ -94,9 +91,18 @@ void GameEngine::run() {
 #endif
 
 void GameEngine::addGameObject(const GameObject& objectPrototype) {
-  gameController->addGameObject(objectPrototype);
+  gameController.addGameObject(objectPrototype);
 }
 
-std::shared_ptr<InputHandler> GameEngine::inputHandler() {
-  return inputHandler_;
+void GameEngine::addCamera(CameraType type, bool mouseLock, bool active) {
+  Camera camera(type, ProjectionType::PERSPECTIVE);
+  gameController.addCamera(camera);
+
+  if (active) {
+    gameRenderer.setActiveCamera(&camera);
+  }
+}
+
+InputHandler& GameEngine::getInputHandler() {
+  return inputHandler;
 }

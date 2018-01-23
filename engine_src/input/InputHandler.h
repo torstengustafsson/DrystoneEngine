@@ -16,9 +16,6 @@ class InputHandler {
 public:
   InputHandler();
 
-  InputHandler & operator=(const InputHandler&) = delete;
-  InputHandler(const InputHandler&) = delete;
-
   void addInputMapping(const int key, std::shared_ptr<InputCommand> command);
   void addInputMapping(const int key, InputCommand* command);
   void removeInputMapping(const int key);

@@ -21,16 +21,18 @@ class GameObject;
 
 class GameEngine {
 public:
-  GameEngine(std::shared_ptr<InputHandler> inputHandler, const int fps = 60);
+  GameEngine(InputHandler& _inputHandler, const int fps = 60);
   GameEngine(const int fps = 60);
 
   void frame();
   void run();
 
-  std::shared_ptr<InputHandler> inputHandler();
+  InputHandler& getInputHandler();
   
   void addGameObject(const GameObject& objectPrototype);
   
+  void addCamera(CameraType type, bool mouseLock, bool active);
+
 private:
 
   void handleInput();
@@ -47,14 +49,11 @@ private:
   const int FPS;
 
   // input handler handles user input such as key and mouse presses
-  std::shared_ptr<InputHandler> inputHandler_;
-
-  // game renderer controls SDL window and renderer
-  std::shared_ptr<Camera> gameCamera; // TODO: camera should be component of gameobject instead
+  InputHandler inputHandler;
 
   // game controller handles game logic.
-  std::unique_ptr<GameController> gameController;
+  GameController gameController;
 
   // game renderer controls SDL window and renderer
-  std::unique_ptr<GameRenderer> gameRenderer;
+  GameRenderer gameRenderer;
 };

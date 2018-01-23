@@ -1,5 +1,6 @@
 #pragma once
 
+#include "input/InputHandler.h"
 #include <memory>
 
 /*
@@ -13,7 +14,6 @@
 */
 
 // forward declarations
-class InputHandler;
 class InputCommand;
 
 class EventHandler {
@@ -25,7 +25,7 @@ public:
   virtual void update() {};
   virtual void destroy() {}
 
-  void setInputHandler(std::shared_ptr<InputHandler> _inputHandler);
+  void setInputHandler(InputHandler& _inputHandler);
   void addInputMapping(const int key, std::shared_ptr<InputCommand> command);
 
   friend class GameObject;
@@ -34,5 +34,5 @@ protected:
   std::shared_ptr<GameObject> gameObject;
 
 private:
-  std::shared_ptr<InputHandler> inputHandler;
+  InputHandler inputHandler;
 };

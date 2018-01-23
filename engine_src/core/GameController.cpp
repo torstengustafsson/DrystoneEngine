@@ -9,23 +9,31 @@ GameController::GameController() {
 }
 
 void GameController::frame() {
-  for (auto gameObject : gameObjects) {
-    gameObject.runEventHandlers();
+  for (auto object : objects) {
+    object.runEventHandlers();
   }
 }
 
 void GameController::addGameObject(const GameObject& objectPrototype) {
-  GameObject gameObject = ComponentManager::addGameObject(objectPrototype);
-  gameObjects.push_back(gameObject);
+  GameObject object = ComponentManager::addGameObject(objectPrototype);
+  objects.push_back(object);
 }
 
-void GameController::removeGameObject(const GameObject& gameObject) {
-  gameObjects.erase(std::remove(gameObjects.begin(), gameObjects.end(), gameObject), gameObjects.end());
-  ComponentManager::removeGameObject(gameObject.getIndex());
+void GameController::removeGameObject(const GameObject& object) {
+  objects.erase(std::remove(objects.begin(), objects.end(), object), objects.end());
+  ComponentManager::removeGameObject(object.getIndex());
+}
+
+void GameController::addCamera(const Camera& camera) {
+  cameras.push_back(camera);
+}
+
+void GameController::removeCamera(const Camera& camera) {
+  //cameras.erase(std::remove(cameras.begin(), cameras.end(), camera), cameras.end());
 }
 
 std::vector<GameObject> GameController::getObjects() {
-  return gameObjects;
+  return objects;
 }
 
 bool GameController::isPaused() {

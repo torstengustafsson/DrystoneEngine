@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
   int fps = argc > 1 ? fps = std::stoi(argv[1]) : 10;
 
-  std::shared_ptr<InputHandler> inputHandler = std::make_shared<InputHandler>();
+  InputHandler inputHandler;
 
   GameObject plane1 = GameObjectFactory::createPlane(0.5, 0.5);
   plane1.addEventHandler(std::make_shared<PlaneHandler>(inputHandler, Preset::PRESET1));
@@ -32,7 +32,7 @@ int main(int argc, char *argv[]) {
 
   // run the game
   GameEngine theGame(inputHandler, fps);
-  inputHandler->addInputMapping(SDLK_ESCAPE, std::make_shared<ExitCommand>());
+  inputHandler.addInputMapping(SDLK_ESCAPE, std::make_shared<ExitCommand>());
 
   theGame.addGameObject(plane1);
   theGame.addGameObject(plane2);
